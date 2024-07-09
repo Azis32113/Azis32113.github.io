@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Test</title>
+</head>
+<body>
+    <h1>Game Test</h1>
+    <script>
+        async function receiveData(request) {
+            const data = await request.json();
+            console.log('Data received:', data);
+            return new Response(JSON.stringify({ status: 'success' }), {
+                headers: { 'Content-Type': 'application/json' }
+            });
+        }
+
+        self.addEventListener('fetch', event => {
+            if (event.request.method === 'POST') {
+                event.respondWith(receiveData(event.request));
+            }
+        });
+    </script>
+</body>
+</html>
