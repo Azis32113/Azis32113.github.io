@@ -32,8 +32,17 @@
     <type fullname="UnityEngine.AnimationClip" preserve="all" />
     <type fullname="UnityEngine.RuntimeAnimatorController" preserve="all" />
   </assembly>
+  <assembly fullname="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="STVR.DriSim.Runtime.Games.Vehicles.VehicleRunner" preserve="all" />
+    <type fullname="STVR.DriSim.Runtime.Games.Vehicles.Vehicle" preserve="all" />
+    <type fullname="STVR.DriSim.Runtime.Games.Levels.LevelSO" preserve="all" />
+    <type fullname="STVR.DriSim.Runtime.Games.Obstacles.ObstacleRunner" preserve="all" />
+    <type fullname="STVR.DriSim.Runtime.Games.Obstacles.Obstacle" preserve="all" />
+  </assembly>
+  <assembly fullname="UnityEngine.VehiclesModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.WheelCollider" preserve="all" />
+  </assembly>
   <assembly fullname="Dreamteck.Forever, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-    <type fullname="Dreamteck.Forever.ProjectedPlayer" preserve="all" />
     <type fullname="Dreamteck.Forever.ForeverLevel" preserve="all" />
     <type fullname="Dreamteck.Forever.UnityRandomizer" preserve="all" />
     <type fullname="Dreamteck.Forever.LevelSegment" preserve="all" />
@@ -44,16 +53,6 @@
     <type fullname="Dreamteck.Forever.SegmentSequence" preserve="nothing" serialized="true" />
     <type fullname="Dreamteck.Forever.SegmentSequenceCollection" preserve="nothing" serialized="true" />
     <type fullname="Dreamteck.Forever.SegmentSequenceCollection/SequenceSerialization" preserve="nothing" serialized="true" />
-  </assembly>
-  <assembly fullname="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-    <type fullname="STVR.DriSim.Runtime.Games.Vehicles.VehicleRunner" preserve="all" />
-    <type fullname="STVR.DriSim.Runtime.Games.Vehicles.Vehicle" preserve="all" />
-    <type fullname="STVR.DriSim.Runtime.Games.Levels.LevelSO" preserve="all" />
-    <type fullname="STVR.DriSim.Runtime.Games.Obstacles.ObstacleRunner" preserve="all" />
-    <type fullname="STVR.DriSim.Runtime.Games.Obstacles.Obstacle" preserve="all" />
-  </assembly>
-  <assembly fullname="UnityEngine.VehiclesModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-    <type fullname="UnityEngine.WheelCollider" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.ParticleSystemModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
     <type fullname="UnityEngine.ParticleSystem" preserve="all" />
