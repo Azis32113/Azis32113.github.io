@@ -19,6 +19,8 @@ vehicle_selection_header,Select Vehicle,Pilih Kendaraan,选择交通工具,য�
 vehicle_selection_select_vehicle,Vehicle: {0},Kendaraan: {0},交通工具: {0},যানবাহন: {0},வாகனம்: {0}
 level_selection_header,Select Level,Pilih Level,选择级别,স্তর নির্বাচন করুন,நிலையைத் தேர்ந்தெடு
 level_selection_select_level,Region: {0},Wilayah: {0},区域: {0},অঞ্চল: {0},பகுதி: {0}
+level_sunny_city,Sunny City,Sunny City,Sunny City,Sunny City,Sunny City
+level_sunny_city_night,Sunny City (Night),Sunny City (Night),Sunny City (Night),Sunny City (Night),Sunny City (Night)
 adjust_speed,Choose Speed,Pilih Kecepatan,选择时速,গতি নির্বাচন করুন,வேகத்தைத் தேர்வு செய்
 adjust_speed_note,"Note : Minimum Speed is 40, Maximum 150","Catatan: Kecepatan Minimum adalah 40, Maksimum 150","注意: 最低时速为40, 最高时速为150","দ্রষ্টব্য: সর্বনিম্ন গতি ৪০, সর্বাধিক ১৫০","குறிப்பு: குறைந்தபட்ச வேகம் 40, அதிகபட்சம் 150"
 setting,Settings,Pengaturan,设置,সেটিংস,அமைப்புகள்
