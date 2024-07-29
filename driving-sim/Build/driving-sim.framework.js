@@ -4489,12 +4489,6 @@ function _Unity_EnterFullscreen() {
  var element = Module["canvas"];
  if (element.requestFullscreen) {
   element.requestFullscreen();
- } else if (element.msRequestFullscreen) {
-  element.msRequestFullscreen();
- } else if (element.mozRequestFullScreen) {
-  element.mozRequestFullScreen();
- } else if (element.webkitRequestFullscreen) {
-  element.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
  }
 }
 function _Unity_SetupWebGLContextEvents() {
