@@ -1,3 +1,6 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:93beb23357138595dc627fc9154ec143ce3e7e53ed2d80586c3ba3839a1a6ece
-size 113
+{
+    "MockCorrectToken": "F4412",
+    "SkipLogin": false,
+    "FastMode": true,
+    "EnableTrivia": false
+}

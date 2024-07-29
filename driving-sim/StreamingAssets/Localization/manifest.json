@@ -1,3 +1,6 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:ef43342e6e72529235ba037663f11e84ff2d6cce996f208d171bf3c2aa7ddeb9
-size 68
+{
+    "files": [
+      "Gameplay.csv",
+      "Menu.csv"
+    ]
+}
