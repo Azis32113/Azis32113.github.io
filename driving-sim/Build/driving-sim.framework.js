@@ -4497,6 +4497,16 @@ function _Unity_EnterFullscreen() {
   element.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
  }
 }
+function _Unity_SetupWebGLContextEvents() {
+ var canvas = Module["canvas"];
+ canvas.addEventListener("webglcontextlost", (function(event) {
+  event.preventDefault();
+  console.warn("WebGL context lost");
+ }), false);
+ canvas.addEventListener("webglcontextrestored", (function(event) {
+  console.log("WebGL context restored");
+ }), false);
+}
 function _UpdateDocument(collectionPath, documentId, value, objectName, callback, fallback) {
  var parsedPath = Pointer_stringify(collectionPath);
  var parsedId = Pointer_stringify(documentId);
@@ -21932,6 +21942,7 @@ Module.asmLibraryArg = {
  "_StopListeningForValueChanged": _StopListeningForValueChanged,
  "_ToggleBooleanWithTransaction": _ToggleBooleanWithTransaction,
  "_Unity_EnterFullscreen": _Unity_EnterFullscreen,
+ "_Unity_SetupWebGLContextEvents": _Unity_SetupWebGLContextEvents,
  "_UpdateDocument": _UpdateDocument,
  "_UpdateJSON": _UpdateJSON,
  "_UploadFile": _UploadFile,
