@@ -296,11 +296,10 @@
         var githubUser = `Azis32113`;
         var repoName = `Azis32113.github.io`;
         var branchName = `main`;
-        var gitLFSconverter = `https://media.githubusercontent.com/media/${githubUser}/${repoName}/${branch}/${buildUrl}/driving-sim${mode}.data`;
 
         var config = {
             // dataUrl: `${buildUrl}/driving-sim${mode}.data`, 
-            dataUrl: gitLFSconverter, 
+            dataUrl: `https://media.githubusercontent.com/media/${githubUser}/${repoName}/${branchName}/${buildUrl}/driving-sim${mode}.data`, 
             frameworkUrl: `${buildUrl}/driving-sim${mode}.framework.js`,
             codeUrl: `${buildUrl}/driving-sim${mode}.wasm`,
             symbolsUrl: `${buildUrl}/driving-sim${mode}.symbols.json`,
