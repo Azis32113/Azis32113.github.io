@@ -231,8 +231,14 @@
             var width = window.innerWidth;
             var height = window.innerHeight;
 			var aspectRatio = width / height;
-			var stringArray = [width, height, aspectRatio];
-			var jsonString = JSON.stringify(stringArray);
+
+			var data = {
+                Width: width,
+                Height: height,
+                AspectRatio: aspectRatio
+            };
+            
+			var jsonString = JSON.stringify(data);
             //unityInstance.SendMessage('JS_CALLBACK', 'OnResolutionChange', jsonString);
 			if (window.unityInstance) {
                 unityInstance.SendMessage('JS_CALLBACK', 'OnResolutionChange', jsonString);
@@ -289,17 +295,11 @@
         window.addEventListener('resize', enforceLandscape);
         window.addEventListener('load', enforceLandscape);
 		
-        var mode = "";
+        var mode = "-stable";
         var buildUrl = "Build";
 		var loaderUrl = `${buildUrl}/driving-sim${mode}.loader.js`;
-        
-        var githubUser = `Azis32113`;
-        var repoName = `Azis32113.github.io`;
-        var branchName = `main`;
-
         var config = {
-            // dataUrl: `${buildUrl}/driving-sim${mode}.data`, 
-            dataUrl: `https://media.githubusercontent.com/media/${githubUser}/${repoName}/${branchName}/driving-sim/${buildUrl}/driving-sim${mode}.data`, 
+            dataUrl: `${buildUrl}/driving-sim${mode}.data`,
             frameworkUrl: `${buildUrl}/driving-sim${mode}.framework.js`,
             codeUrl: `${buildUrl}/driving-sim${mode}.wasm`,
             symbolsUrl: `${buildUrl}/driving-sim${mode}.symbols.json`,
