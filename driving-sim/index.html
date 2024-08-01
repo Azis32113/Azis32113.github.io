@@ -291,13 +291,13 @@
             }
         }
 
+
         window.addEventListener('resize', enforceLandscape);
         window.addEventListener('load', enforceLandscape);
 		
-        var mode = "";
+        var mode = "-stable";
         var buildUrl = "Build";
 		var loaderUrl = `${buildUrl}/driving-sim${mode}.loader.js`;
-
         var config = {
             dataUrl: `${buildUrl}/driving-sim${mode}.data`,
             frameworkUrl: `${buildUrl}/driving-sim${mode}.framework.js`,
