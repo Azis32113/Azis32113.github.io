@@ -1,0 +1,21 @@
+{
+  "HighestScore": 0.0,
+  "MinigameId": 0,
+  "SceneName": "Byunglon Jet Hub",
+  "Orthographic": true,
+  "OrthographicSize": 10.25,
+  "TopScores": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "name": "Byunglon Jet",
+  "hideFlags": 0
+}
