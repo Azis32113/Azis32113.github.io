@@ -284,7 +284,7 @@
         }
 
         // Function to handle fullscreen requests
-        function requestFullscreen() {
+        function fullscreen() {
             var element = document.getElementById("content");
             if (element.requestFullScreen) {
                 if (!document.fullScreen) {
@@ -319,7 +319,7 @@
             } 
         }
 
-        requestFullscreen();
+        fullscreen();
 
         // Enforce landscape orientation on mobile devices
         function enforceLandscape() {
@@ -329,7 +329,6 @@
                 orientationOverlay.style.display = 'none';
             }
         }
-
 
         window.addEventListener('resize', enforceLandscape);
         window.addEventListener('load', enforceLandscape);
