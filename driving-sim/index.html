@@ -215,7 +215,7 @@
 
         // Function to handle fullscreen requests
         const requestFullScreen = async () => {
-            let element = await Module['canvas'];
+            let element = await document.documentElement;;
             let requestMethod =
             element.requestFullScreen ||
             element.webkitRequestFullScreen ||
