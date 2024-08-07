@@ -292,11 +292,30 @@
             }
         }
 
+        function EnterFullscreen() {
+            var element = document.documentElement;
+            if (element.requestFullscreen) {
+                element.requestFullscreen();
+            } 
+            else if (element.msRequestFullscreen) {
+                element.msRequestFullscreen();
+            } else if (element.mozRequestFullScreen) {
+                element.mozRequestFullScreen();
+            } else if (element.webkitRequestFullscreen) {
+                element.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+        }
+
+        function LockLandscape() {
+            // this works on android, not iOS
+            if (screen.orientation && screen.orientation.lock) {
+            screen.orientation.lock('landscape');
+            }
+        }
+    }
+
 
         window.addEventListener('resize', enforceLandscape);
         window.addEventListener('load', enforceLandscape);
-
-        window.addEventListener('orientationchange', enforceLandscape);
 		
         var mode = "";
         var buildUrl = "Build";
@@ -325,45 +344,18 @@
             // Avoid draining fillrate performance on mobile devices,
             // and default/override low DPI mode on mobile browsers.
             config.devicePixelRatio = 1;
-
         } else {
             canvas.style.width = "1366px";
             canvas.style.height = "768px";
         }
         loadingBar.style.display = "block";
 
+        requestFullscreen();
+        LockLandscape();
+
         var script = document.createElement("script");
-
-        function requestLandscape() {
-            if (!/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) return;
-
-            var elem = document.documentElement;
-            if (elem.requestFullscreen) {
-                elem.requestFullscreen();
-                makeLandscape();
-            } else if (elem.mozRequestFullScreen) { // Firefox
-                elem.mozRequestFullScreen();
-                makeLandscape();
-            } else if (elem.webkitRequestFullscreen) { // Chrome, Safari, and Opera
-                elem.webkitRequestFullscreen();
-                makeLandscape();
-            } else if (elem.msRequestFullscreen) { // IE/Edge
-                elem.msRequestFullscreen();
-                makeLandscape();
-            }
-        }
-
-        function makeLandscape() {
-            // this works on android, not iOS
-            if (screen.orientation && screen.orientation.lock) {
-            screen.orientation.lock('landscape');
-            }
-        }
-
         script.src = loaderUrl;
         script.onload = () => {
-            requestLandscape();
-            
             createUnityInstance(canvas, config, (progress) => {
                 progressBarFull.style.width = 100 * progress + "%";
             }).then((unityInstance) => {
