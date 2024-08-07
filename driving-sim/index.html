@@ -320,13 +320,6 @@
         // the canvas DOM size and WebGL render target sizes yourself.
         // config.matchWebGLToCanvasSize = false;
 
-        function makeLandscape() {
-            // this works on android, not iOS
-            if (screen.orientation && screen.orientation.lock) {
-            screen.orientation.lock('landscape');
-            }
-        }
-
         if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
             container.className = "unity-mobile";
             // Avoid draining fillrate performance on mobile devices,
@@ -342,22 +335,35 @@
         var script = document.createElement("script");
 
         function requestLandscape() {
-            var element = document.getElementById('unity-container');   
-            if (element.mozRequestFullScreen) {
-                element.mozRequestFullScreen();
+            if (!/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) return;
+
+            var elem = document.documentElement;
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
                 makeLandscape();
-            } else if (element.webkitRequestFullScreen) {
-                element.webkitRequestFullScreen();
+            } else if (elem.mozRequestFullScreen) { // Firefox
+                elem.mozRequestFullScreen();
                 makeLandscape();
+            } else if (elem.webkitRequestFullscreen) { // Chrome, Safari, and Opera
+                elem.webkitRequestFullscreen();
+                makeLandscape();
+            } else if (elem.msRequestFullscreen) { // IE/Edge
+                elem.msRequestFullscreen();
+                makeLandscape();
+            }
+        }
+
+        function makeLandscape() {
+            // this works on android, not iOS
+            if (screen.orientation && screen.orientation.lock) {
+            screen.orientation.lock('landscape');
             }
         }
 
         script.src = loaderUrl;
         script.onload = () => {
-            if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent))
-            {
-                requestLandscape();
-            }
+            requestLandscape();
+            
             createUnityInstance(canvas, config, (progress) => {
                 progressBarFull.style.width = 100 * progress + "%";
             }).then((unityInstance) => {
