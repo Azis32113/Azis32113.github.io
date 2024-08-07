@@ -343,11 +343,11 @@
 
         function requestLandscape() {
             var element = document.getElementById('unity-container');   
-            if (script.mozRequestFullScreen) {
-                script.mozRequestFullScreen();
+            if (element.mozRequestFullScreen) {
+                element.mozRequestFullScreen();
                 makeLandscape();
-            } else if (script.webkitRequestFullScreen) {
-                script.webkitRequestFullScreen();
+            } else if (element.webkitRequestFullScreen) {
+                element.webkitRequestFullScreen();
                 makeLandscape();
             }
         }
