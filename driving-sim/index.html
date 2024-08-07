@@ -320,16 +320,19 @@
         // the canvas DOM size and WebGL render target sizes yourself.
         // config.matchWebGLToCanvasSize = false;
 
+        function makeLandscape() {
+            // this works on android, not iOS
+            if (screen.orientation && screen.orientation.lock) {
+            screen.orientation.lock('landscape');
+            }
+        }
+
         if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
             container.className = "unity-mobile";
             // Avoid draining fillrate performance on mobile devices,
             // and default/override low DPI mode on mobile browsers.
             config.devicePixelRatio = 1;
-            
-            // this works on android, not iOS
-            if (screen.orientation && screen.orientation.lock) {
-            screen.orientation.lock('landscape');
-            }
+
         } else {
             canvas.style.width = "1366px";
             canvas.style.height = "768px";
@@ -337,8 +340,24 @@
         loadingBar.style.display = "block";
 
         var script = document.createElement("script");
+
+        function requestLandscape() {
+            var element = document.getElementById('video-container');   
+            if (script.mozRequestFullScreen) {
+                script.mozRequestFullScreen();
+                makeLandscape();
+            } else if (script.webkitRequestFullScreen) {
+                script.webkitRequestFullScreen();
+                makeLandscape();
+            }
+        }
+
         script.src = loaderUrl;
         script.onload = () => {
+            if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent))
+            {
+                requestLandscape();
+            }
             createUnityInstance(canvas, config, (progress) => {
                 progressBarFull.style.width = 100 * progress + "%";
             }).then((unityInstance) => {
