@@ -214,16 +214,22 @@
         firebase.initializeApp(firebaseConfig);
 
         // Function to handle fullscreen requests
-        function requestFullscreen() {
-            var elem = document.documentElement;
-            if (elem.requestFullscreen) {
-                elem.requestFullscreen();
-            } else if (elem.mozRequestFullScreen) { // Firefox
-                elem.mozRequestFullScreen();
-            } else if (elem.webkitRequestFullscreen) { // Chrome, Safari, and Opera
-                elem.webkitRequestFullscreen();
-            } else if (elem.msRequestFullscreen) { // IE/Edge
-                elem.msRequestFullscreen();
+        const requestFullScreen = async () => {
+            let element = await document.documentElement;
+            let requestMethod =
+            element.requestFullScreen ||
+            element.webkitRequestFullScreen ||
+            element.mozRequestFullScreen ||
+            element.msRequestFullScreen;
+            if (requestMethod) {
+            requestMethod.call(element);
+            return true;
+            } else if (typeof window.ActiveXObject !== "undefined") {
+            let wscript = new ActiveXObject("WScript.Shell");
+            if (wscript !== null) {
+                wscript.SendKeys("{F11}");
+                return true;
+            }
             }
         }
     </script>
@@ -292,20 +298,6 @@
             }
         }
 
-        function EnterFullscreen() {
-            var element = document.documentElement;
-            if (element.requestFullscreen) {
-                element.requestFullscreen();
-            } 
-            else if (element.msRequestFullscreen) {
-                element.msRequestFullscreen();
-            } else if (element.mozRequestFullScreen) {
-                element.mozRequestFullScreen();
-            } else if (element.webkitRequestFullscreen) {
-                element.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
-            }
-        }
-
         function LockLandscape() {
             // this works on android, not iOS
             if (screen.orientation && screen.orientation.lock) {
@@ -349,7 +341,7 @@
         }
         loadingBar.style.display = "block";
 
-        requestFullscreen();
+        requestFullScreen();
         LockLandscape();
 
         var script = document.createElement("script");
