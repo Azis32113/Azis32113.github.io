@@ -190,6 +190,9 @@
             <div id="unity-build-title">Driving Sim</div>
         </div>
     </div>
+<!--     <div id="landscape-warning" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); font-size:24px; color:red; background-color:white; padding:10px; border:2px solid red;">
+        Portrait Detected
+    </div> -->
     <div id="orientation-overlay">
         <p>Please rotate your device to landscape mode.</p>
     </div>
@@ -237,7 +240,8 @@
             };
             
 			var jsonString = JSON.stringify(data);
-            if (window.unityInstance) {
+            //unityInstance.SendMessage('JS_CALLBACK', 'OnResolutionChange', jsonString);
+			if (window.unityInstance) {
                 unityInstance.SendMessage('JS_CALLBACK', 'OnResolutionChange', jsonString);
             }
 		}
@@ -252,11 +256,15 @@
         var progressBarFull = document.querySelector("#unity-progress-bar-full");
         var fullscreenButton = document.querySelector("#unity-fullscreen-button");
         var warningBanner = document.querySelector("#unity-warning");
+        var landscapeWarning = document.querySelector("#landscape-warning");
         var orientationOverlay = document.querySelector("#orientation-overlay");
 
         // Shows a temporary message banner/ribbon for a few seconds, or
         // a permanent error message on top of the canvas if type=='error'.
         // If type=='warning', a yellow highlight color is used.
+        // Modify or remove this function to customize the visually presented
+        // way that non-critical warnings and error messages are presented to the
+        // user.
         function unityShowBanner(msg, type) {
             function updateBannerVisibility() {
                 warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
@@ -284,6 +292,7 @@
             }
         }
 
+
         window.addEventListener('resize', enforceLandscape);
         window.addEventListener('load', enforceLandscape);
 
@@ -304,8 +313,17 @@
             showBanner: unityShowBanner,
         };
 
+        // By default Unity keeps WebGL canvas render target size matched with
+        // the DOM size of the canvas element (scaled by window.devicePixelRatio)
+        // Set this to false if you want to decouple this synchronization from
+        // happening inside the engine, and you would instead like to size up
+        // the canvas DOM size and WebGL render target sizes yourself.
+        // config.matchWebGLToCanvasSize = false;
+
         if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
             container.className = "unity-mobile";
+            // Avoid draining fillrate performance on mobile devices,
+            // and default/override low DPI mode on mobile browsers.
             config.devicePixelRatio = 1;
         } else {
             canvas.style.width = "1366px";
@@ -319,6 +337,9 @@
             createUnityInstance(canvas, config, (progress) => {
                 progressBarFull.style.width = 100 * progress + "%";
             }).then((unityInstance) => {
+                if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+                    unityInstance.SetFullscreen(1);
+                }
                 loadingBar.style.display = "none";
                 window.unityInstance = unityInstance;
                 fullscreenButton.onclick = () => {
