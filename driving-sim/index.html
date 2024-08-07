@@ -283,44 +283,6 @@
             updateBannerVisibility();
         }
 
-        // Function to handle fullscreen requests
-        function fullscreen() {
-            var element = document.getElementById("content");
-            if (element.requestFullScreen) {
-                if (!document.fullScreen) {
-                    element.requestFullscreen();
-                    $(".fullscreen").attr('src',"img/icons/panel_resize_actual.png");
-                } else {
-                    document.exitFullScreen();
-                    $(".fullscreen").attr('src',"img/icons/panel_resize.png");
-                }
-
-            } else if (element.mozRequestFullScreen) {
-
-                if (!document.mozFullScreen) {
-                    element.mozRequestFullScreen();
-                    $(".fullscreen").attr('src',"img/icons/panel_resize_actual.png");
-                    google.maps.event.trigger(map, 'resize');
-                } else {
-                    document.mozCancelFullScreen();
-                    $(".fullscreen").attr('src',"img/icons/panel_resize.png");
-                }
-
-            } else if (element.webkitRequestFullScreen) {
-
-                if (!document.webkitIsFullScreen) {
-                    element.webkitRequestFullScreen();
-                    $(".fullscreen").attr('src',"img/icons/panel_resize_actual.png");
-                    google.maps.event.trigger(map, 'resize');
-                } else {
-                    document.webkitCancelFullScreen();
-                    $(".fullscreen").attr('src',"img/icons/panel_resize.png");
-                } 
-            } 
-        }
-
-        fullscreen();
-
         // Enforce landscape orientation on mobile devices
         function enforceLandscape() {
             if (window.innerHeight > window.innerWidth) {
@@ -329,6 +291,7 @@
                 orientationOverlay.style.display = 'none';
             }
         }
+
 
         window.addEventListener('resize', enforceLandscape);
         window.addEventListener('load', enforceLandscape);
