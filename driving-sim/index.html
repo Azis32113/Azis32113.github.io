@@ -303,6 +303,7 @@
                 element.mozRequestFullScreen();
             } else if (element.webkitRequestFullscreen) {
                 element.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+            }
         }
 
         function LockLandscape() {
@@ -311,8 +312,6 @@
             screen.orientation.lock('landscape');
             }
         }
-    }
-
 
         window.addEventListener('resize', enforceLandscape);
         window.addEventListener('load', enforceLandscape);
