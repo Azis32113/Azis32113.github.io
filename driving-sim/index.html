@@ -285,19 +285,38 @@
 
         // Function to handle fullscreen requests
         function requestFullscreen() {
-            var elem = document.documentElement;
-            if (elem.requestFullscreen) {
-                elem.requestFullscreen();
-            } else if (elem.mozRequestFullScreen) { // Firefox
-                elem.mozRequestFullScreen();
-            } else if (elem.webkitRequestFullscreen) { // Chrome, Safari, and Opera
-                elem.webkitRequestFullscreen();
-            } else if (elem.msRequestFullscreen) { // IE/Edge
-                elem.msRequestFullscreen();
-            }
-            else{
-                console.log('Fullscreen Request Denied!');
-            }
+            var elem = document.getElementById("content");
+            if (element.requestFullScreen) {
+                if (!document.fullScreen) {
+                    element.requestFullscreen();
+                    $(".fullscreen").attr('src',"img/icons/panel_resize_actual.png");
+                } else {
+                    document.exitFullScreen();
+                    $(".fullscreen").attr('src',"img/icons/panel_resize.png");
+                }
+
+            } else if (element.mozRequestFullScreen) {
+
+                if (!document.mozFullScreen) {
+                    element.mozRequestFullScreen();
+                    $(".fullscreen").attr('src',"img/icons/panel_resize_actual.png");
+                    google.maps.event.trigger(map, 'resize');
+                } else {
+                    document.mozCancelFullScreen();
+                    $(".fullscreen").attr('src',"img/icons/panel_resize.png");
+                }
+
+            } else if (element.webkitRequestFullScreen) {
+
+                if (!document.webkitIsFullScreen) {
+                    element.webkitRequestFullScreen();
+                    $(".fullscreen").attr('src',"img/icons/panel_resize_actual.png");
+                    google.maps.event.trigger(map, 'resize');
+                } else {
+                    document.webkitCancelFullScreen();
+                    $(".fullscreen").attr('src',"img/icons/panel_resize.png");
+                } 
+            } 
         }
 
         requestFullscreen();
