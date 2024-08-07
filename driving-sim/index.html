@@ -215,7 +215,7 @@
 
         // Function to handle fullscreen requests
         const requestFullScreen = async () => {
-            let element = await document.documentElement;
+            let element = await Module['canvas'];
             let requestMethod =
             element.requestFullScreen ||
             element.webkitRequestFullScreen ||
@@ -225,11 +225,11 @@
             requestMethod.call(element);
             return true;
             } else if (typeof window.ActiveXObject !== "undefined") {
-            let wscript = new ActiveXObject("WScript.Shell");
-            if (wscript !== null) {
-                wscript.SendKeys("{F11}");
-                return true;
-            }
+                let wscript = new ActiveXObject("WScript.Shell");
+                if (wscript !== null) {
+                    wscript.SendKeys("{F11}");
+                    return true;
+                }
             }
         }
     </script>
@@ -341,9 +341,7 @@
         }
         loadingBar.style.display = "block";
 
-        requestFullScreen();
-        LockLandscape();
-
+        
         var script = document.createElement("script");
         script.src = loaderUrl;
         script.onload = () => {
@@ -359,6 +357,10 @@
                 alert(message);
             });
         };
+
+        requestFullScreen();
+        LockLandscape();
+        
         document.body.appendChild(script);
 
     </script>
