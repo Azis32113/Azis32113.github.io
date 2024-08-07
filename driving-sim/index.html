@@ -325,6 +325,11 @@
             // Avoid draining fillrate performance on mobile devices,
             // and default/override low DPI mode on mobile browsers.
             config.devicePixelRatio = 1;
+            
+            // this works on android, not iOS
+            if (screen.orientation && screen.orientation.lock) {
+            screen.orientation.lock('landscape');
+            }
         } else {
             canvas.style.width = "1366px";
             canvas.style.height = "768px";
@@ -337,9 +342,6 @@
             createUnityInstance(canvas, config, (progress) => {
                 progressBarFull.style.width = 100 * progress + "%";
             }).then((unityInstance) => {
-                if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-                    unityInstance.SetFullscreen(1);
-                }
                 loadingBar.style.display = "none";
                 window.unityInstance = unityInstance;
                 fullscreenButton.onclick = () => {
