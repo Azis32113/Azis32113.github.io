@@ -214,22 +214,16 @@
         firebase.initializeApp(firebaseConfig);
 
         // Function to handle fullscreen requests
-        const requestFullScreen = async () => {
-            let element = await document.documentElement;;
-            let requestMethod =
-            element.requestFullScreen ||
-            element.webkitRequestFullScreen ||
-            element.mozRequestFullScreen ||
-            element.msRequestFullScreen;
-            if (requestMethod) {
-            requestMethod.call(element);
-            return true;
-            } else if (typeof window.ActiveXObject !== "undefined") {
-                let wscript = new ActiveXObject("WScript.Shell");
-                if (wscript !== null) {
-                    wscript.SendKeys("{F11}");
-                    return true;
-                }
+        function requestFullscreen() {
+            var elem = document.documentElement;
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.mozRequestFullScreen) { // Firefox
+                elem.mozRequestFullScreen();
+            } else if (elem.webkitRequestFullscreen) { // Chrome, Safari, and Opera
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) { // IE/Edge
+                elem.msRequestFullscreen();
             }
         }
     </script>
@@ -298,12 +292,6 @@
             }
         }
 
-        function LockLandscape() {
-            // this works on android, not iOS
-            if (screen.orientation && screen.orientation.lock) {
-            screen.orientation.lock('landscape');
-            }
-        }
 
         window.addEventListener('resize', enforceLandscape);
         window.addEventListener('load', enforceLandscape);
@@ -341,7 +329,6 @@
         }
         loadingBar.style.display = "block";
 
-        
         var script = document.createElement("script");
         script.src = loaderUrl;
         script.onload = () => {
@@ -357,10 +344,6 @@
                 alert(message);
             });
         };
-
-        requestFullScreen();
-        LockLandscape();
-        
         document.body.appendChild(script);
 
     </script>
