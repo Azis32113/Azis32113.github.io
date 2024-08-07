@@ -295,6 +295,9 @@
             } else if (elem.msRequestFullscreen) { // IE/Edge
                 elem.msRequestFullscreen();
             }
+            else{
+                console.log('Fullscreen Request Denied!');
+            }
         }
 
         requestFullscreen();
@@ -312,7 +315,7 @@
         window.addEventListener('resize', enforceLandscape);
         window.addEventListener('load', enforceLandscape);
 		
-        var mode = "-stable";
+        var mode = "";
         var buildUrl = "Build";
 		var loaderUrl = `${buildUrl}/driving-sim${mode}.loader.js`;
         var config = {
