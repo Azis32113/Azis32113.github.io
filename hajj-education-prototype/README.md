@@ -9,12 +9,25 @@ npm install
 npm run dev
 ```
 
-Buka `http://localhost:5173`.
+Vite membuka `http://localhost:5173/dev.html`. Halaman `index.html` adalah build produksi yang dipakai GitHub Pages, jadi perubahan sumber tidak muncul di sana sampai build ulang.
 
 Build produksi:
 
 ```bash
 npm run build
+```
+
+Perintah ini menjalankan Vite lalu menyalin hasil build ke folder ini:
+
+- `dist/assets/app.js` dan `dist/assets/app.css` → `assets/`
+- `dist/favicon.svg` → `favicon.svg`
+- `dist/.nojekyll` → `.nojekyll`
+
+Nama aset sengaja stabil (`app.js`/`app.css`) agar `index.html` yang di-commit tetap valid. `dist/` tetap diabaikan Git; yang di-commit adalah `index.html`, `assets/`, `favicon.svg`, dan `.nojekyll`.
+
+Pratinjau hasil build (menyajikan `dist/`):
+
+```bash
 npm run preview
 ```
 
@@ -34,27 +47,22 @@ npm run preview
 
 ## Deploy ke GitHub Pages
 
-Build ini statis, jadi bisa langsung dipasang di GitHub Pages. Vite memakai `base: './'`, sehingga aset tetap benar baik di `https://<user>.github.io/<repo>/` maupun di `https://<user>.github.io/`.
+Folder ini adalah bagian dari user site `Azis32113.github.io`, dan Pages men-deploy langsung dari branch `main` (root repository). Situs ini tersedia di:
 
-Workflow siap pakai ada di `.github/workflows/deploy.yml`.
+```text
+https://azis32113.github.io/hajj-education-prototype/
+```
 
-1. Jadikan folder ini root repository (bukan folder induk `Hajj-Education`).
-2. Push ke branch `main`:
+Karena GitHub Pages menyajikan file apa adanya (tanpa langkah build), hasil build ikut di-commit:
 
-   ```bash
-   git init
-   git add .
-   git commit -m "Hajj Tamattu prototype"
-   git branch -M main
-   git remote add origin https://github.com/<user>/<repo>.git
-   git push -u origin main
-   ```
+1. Ubah sumber di `src/`.
+2. Jalankan `npm run build`.
+3. Commit `index.html`, `assets/`, `favicon.svg`, dan `.nojekyll` beserta perubahan sumber.
+4. Push ke `main`; GitHub Pages akan menyajikan versi baru.
 
-3. Di repository GitHub: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
-4. Setiap push ke `main` akan menjalankan build dan deploy otomatis.
-5. Situs tersedia di `https://<user>.github.io/<repo>/`.
+Jangan meng-commit `dist/` (sudah diabaikan lewat `.gitignore`). `index.html` di root folder ini sengaja menunjuk ke `./assets/app.js` dan `./assets/app.css`, sehingga URL-nya benar baik di `https://<user>.github.io/<repo>/` maupun saat folder dijadikan root repository sendiri.
 
-Jika repository memakai branch `master`, ubah `branches: [main]` di workflow menjadi `[master]`. Jika folder ini bukan root repo, tambahkan `working-directory` dan sesuaikan `path` artifact di workflow.
+Workflow `.github/workflows/deploy.yml` hanya terpakai jika folder ini dipisah menjadi repository sendiri dan dijadikan root, lalu **Settings → Pages → Source** diubah ke **GitHub Actions**. Untuk struktur user site saat ini, deployment dari branch sudah cukup.
 
 Catatan: `localStorage` terikat pada **origin**, bukan path. Di GitHub Pages, semua project site di bawah `<user>.github.io` berbagi origin yang sama. Aplikasi memakai key `hajj-tamattu-prototype-v1` agar tidak bertabrakan dengan aplikasi lain. Pindah ke custom domain akan memulai penyimpanan baru. Tidak ada backend; seluruh data tetap di browser pengunjung.
 
@@ -63,7 +71,12 @@ Catatan: `localStorage` terikat pada **origin**, bukan path. Di GitHub Pages, se
 ```
 hajj-education-prototype/
 ├── .github/workflows/deploy.yml
-├── index.html
+├── .nojekyll              # hasil build: menonaktifkan pemrosesan Jekyll
+├── assets/                # hasil build: app.js + app.css (di-commit)
+├── dev.html               # entry Vite untuk pengembangan
+├── index.html             # halaman produksi yang disajikan GitHub Pages
+├── scripts/publish-pages.mjs
+├── favicon.svg            # hasil build
 ├── package.json
 ├── public/favicon.svg
 ├── public/.nojekyll

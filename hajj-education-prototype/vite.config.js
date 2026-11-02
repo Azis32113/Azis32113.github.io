@@ -9,5 +9,19 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 5173,
+    // index.html is the prebuilt page served by GitHub Pages; use dev.html for HMR.
+    open: '/dev.html',
+  },
+  build: {
+    rollupOptions: {
+      input: 'dev.html',
+      output: {
+        // Stable names keep the committed index.html valid across builds.
+        entryFileNames: 'assets/app.js',
+        chunkFileNames: 'assets/[name].js',
+        assetFileNames: (assetInfo) =>
+          assetInfo.name?.endsWith('.css') ? 'assets/app.css' : 'assets/[name][extname]',
+      },
+    },
   },
 });
