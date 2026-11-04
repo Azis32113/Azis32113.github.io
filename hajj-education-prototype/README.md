@@ -17,13 +17,15 @@ Build produksi:
 npm run build
 ```
 
-Perintah ini menjalankan Vite lalu menyalin hasil build ke folder ini:
+Perintah ini menjalankan Vite lalu menerbitkan hasil build ke folder ini:
 
-- `dist/assets/app.js` dan `dist/assets/app.css` → `assets/`
+- `dist/dev.html` → `index.html` (aset memakai nama ber-hash)
+- `dist/assets/*` → `assets/`
+- `assets/app.js` dan `assets/app.css` tetap disalin sebagai alias stabil untuk klien yang masih memegang `index.html` lama dari cache
 - `dist/favicon.svg` → `favicon.svg`
 - `dist/.nojekyll` → `.nojekyll`
 
-Nama aset sengaja stabil (`app.js`/`app.css`) agar `index.html` yang di-commit tetap valid. `dist/` tetap diabaikan Git; yang di-commit adalah `index.html`, `assets/`, `favicon.svg`, dan `.nojekyll`.
+`index.html` ditulis ulang setiap build dan menunjuk ke bundle ber-hash (misalnya `assets/dev-DwOJd8li.js`), sehingga deploy baru tidak memakai JS lama dari cache. `dist/` tetap diabaikan Git; yang di-commit adalah `index.html`, `assets/`, `favicon.svg`, dan `.nojekyll`.
 
 Pratinjau hasil build (menyajikan `dist/`):
 
@@ -74,7 +76,7 @@ Catatan: `localStorage` terikat pada **origin**, bukan path. Di GitHub Pages, se
 hajj-education-prototype/
 ├── .github/workflows/deploy.yml
 ├── .nojekyll              # hasil build: menonaktifkan pemrosesan Jekyll
-├── assets/                # hasil build: app.js + app.css (di-commit)
+├── assets/                # hasil build: bundle ber-hash + alias app.js/app.css
 ├── dev.html               # entry Vite untuk pengembangan
 ├── index.html             # halaman produksi yang disajikan GitHub Pages
 ├── scripts/publish-pages.mjs

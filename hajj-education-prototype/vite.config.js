@@ -15,13 +15,6 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: 'dev.html',
-      output: {
-        // Stable names keep the committed index.html valid across builds.
-        entryFileNames: 'assets/app.js',
-        chunkFileNames: 'assets/[name].js',
-        assetFileNames: (assetInfo) =>
-          assetInfo.name?.endsWith('.css') ? 'assets/app.css' : 'assets/[name][extname]',
-      },
     },
   },
 });
