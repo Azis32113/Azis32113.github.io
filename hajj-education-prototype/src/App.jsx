@@ -855,6 +855,175 @@ const DUAS = {
   },
 };
 
+// Bacaan pilihan per putaran/leg. Tidak ada kewajiban doa yang berbeda tiap
+// putaran; daftar ini dipakai untuk latihan agar jemaah terbiasa berdzikir
+// sepanjang tawaf dan sa'i, bukan hanya di satu titik.
+const ROUTE_DUAS = {
+  tawaf: [
+    {
+      title: 'Putaran 1 · iman dan mengikuti sunnah',
+      arabic:
+        'سُبْحَانَ اللَّهِ وَالْحَمْدُ لِلَّهِ وَلَا إِلَهَ إِلَّا اللَّهُ وَاللَّهُ أَكْبَرُ، اللَّهُمَّ إِيمَانًا بِكَ وَتَصْدِيقًا بِكِتَابِكَ وَوَفَاءً بِعَهْدِكَ وَاتِّبَاعًا لِسُنَّةِ نَبِيِّكَ مُحَمَّدٍ',
+      latin:
+        'Subhanallah, walhamdulillah, wa laa ilaaha illallah, wallahu akbar. Allahumma iimaanan bika wa tashdiiqan bikitaabika wa wafaa’an bi‘ahdika wattibaa‘an lisunnati nabiyyika Muhammad.',
+      translation:
+        'Mahasuci Allah, segala puji bagi Allah, tidak ada tuhan selain Allah, dan Allah Mahabesar. Ya Allah, aku bertawaf karena iman kepada-Mu, membenarkan kitab-Mu, menepati janji-Mu, dan mengikuti sunnah Nabi-Mu Muhammad.',
+      source: 'Doa tawaf putaran 1 · Kemenag 2023',
+    },
+    {
+      title: 'Putaran 2 · rumah dan perlindungan',
+      arabic:
+        'اللَّهُمَّ إِنَّ هَذَا الْبَيْتَ بَيْتُكَ، وَالْحَرَمَ حَرَمُكَ، وَالْأَمْنَ أَمْنُكَ، وَالْعَبْدَ عَبْدُكَ، وَأَنَا عَبْدُكَ وَابْنُ عَبْدِكَ، فَحَرِّمْ لَحْمِي وَدَمِي عَلَى النَّارِ',
+      latin:
+        'Allahumma inna haadzal baita baituka, wal harama haramuka, wal amna amnuka, wal ‘abda ‘abduka, wa ana ‘abduka wabnu ‘abdika, faharrim lahmii wa damii ‘alan naar.',
+      translation:
+        'Ya Allah, sesungguhnya Bait ini rumah-Mu, tanah suci ini tanah-Mu, negeri aman ini negeri-Mu, dan hamba ini hamba-Mu. Aku adalah hamba-Mu dan anak dari hamba-Mu, maka haramkanlah daging dan darahku dari siksa neraka.',
+      source: 'Doa tawaf putaran 2 · Kemenag 2023',
+    },
+    {
+      title: 'Putaran 3 · berlindung dari keburukan',
+      arabic:
+        'اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الشَّكِّ وَالشِّرْكِ وَالشِّقَاقِ وَالنِّفَاقِ وَسُوءِ الْأَخْلَاقِ وَسُوءِ الْمَنْظَرِ وَالْمُنْقَلَبِ فِي الْمَالِ وَالْأَهْلِ وَالْوَلَدِ',
+      latin:
+        'Allahumma innii a‘uudzu bika minasy syakki wasy syirki wasy syiqaaqi wan nifaaqi wa suu’il akhlaaqi wa suu’il mandzari wal munqalabi fil maali wal ahli wal walad.',
+      translation:
+        'Ya Allah, aku berlindung kepada-Mu dari keraguan, syirik, perpecahan, kemunafikan, akhlak yang buruk, penampilan yang buruk, serta perubahan yang buruk pada harta, keluarga, dan anak.',
+      source: 'Doa tawaf putaran 3 · Kemenag 2023',
+    },
+    {
+      title: 'Putaran 4 · umrah yang diterima',
+      arabic:
+        'اللَّهُمَّ اجْعَلْهَا عُمْرَةً مَقْبُولَةً وَسَعْيًا مَشْكُورًا وَذَنْبًا مَغْفُورًا وَعَمَلًا صَالِحًا مَقْبُولًا وَتِجَارَةً لَنْ تَبُورَ',
+      latin:
+        'Allahummaj‘alhaa ‘umratan maqbuulatan wa sa‘yan masykuuran wa dzanban maghfuuran wa ‘amalan shaalihan maqbuulan wa tijaaratan lan tabuur.',
+      translation:
+        'Ya Allah, jadikanlah ini umrah yang diterima, sa’i yang disyukuri, dosa yang diampuni, amal saleh yang diterima, dan perniagaan yang tidak akan merugi.',
+      source: 'Doa tawaf putaran 4 · Kemenag 2023',
+    },
+    {
+      title: 'Putaran 5 · naungan dan telaga',
+      arabic:
+        'اللَّهُمَّ أَظِلَّنِي تَحْتَ ظِلِّ عَرْشِكَ يَوْمَ لَا ظِلَّ إِلَّا ظِلُّكَ، وَأَسْقِنِي مِنْ حَوْضِ نَبِيِّكَ مُحَمَّدٍ شُرْبَةً هَنِيئَةً لَا أَظْمَأُ بَعْدَهَا أَبَدًا',
+      latin:
+        'Allahumma azhillanii tahta zhilli ‘arsyika yauma laa zhilla illaa zhilluka, wa asqinii min haudhi nabiyyika Muhammadin syurbatan hanii’atan laa azhma’u ba‘dahaa abadaa.',
+      translation:
+        'Ya Allah, naungilah aku di bawah naungan Arsy-Mu pada hari yang tidak ada naungan selain naungan-Mu, dan berilah aku minum dari telaga Nabi-Mu Muhammad dengan minuman yang menyenangkan, sehingga aku tidak akan haus lagi selamanya.',
+      source: 'Doa tawaf putaran 5 · Kemenag 2023',
+    },
+    {
+      title: 'Putaran 6 · hak dan ampunan',
+      arabic:
+        'اللَّهُمَّ إِنَّ لَكَ عَلَيَّ حُقُوقًا كَثِيرَةً فِيمَا بَيْنِي وَبَيْنَكَ، وَحُقُوقًا كَثِيرَةً فِيمَا بَيْنِي وَبَيْنَ خَلْقِكَ، فَمَا كَانَ لَكَ مِنْهَا فَاغْفِرْهُ لِي، وَمَا كَانَ لِخَلْقِكَ فَتَحَمَّلْهُ عَنِّي',
+      latin:
+        'Allahumma inna laka ‘alayya huquuqan katsiiratan fiimaa bainii wa bainaka, wa huquuqan katsiiratan fiimaa bainii wa baina khalqika. Famaa kaana laka minhaa faghfirhu lii, wa maa kaana likhalqika fatahammalhu ‘annii.',
+      translation:
+        'Ya Allah, sesungguhnya Engkau memiliki banyak hak atasku dalam hubunganku dengan-Mu, dan banyak hak dalam hubunganku dengan makhluk-Mu. Apa yang menjadi hak-Mu, ampunilah aku; apa yang menjadi hak makhluk-Mu, tanggunglah itu dariku.',
+      source: 'Doa tawaf putaran 6 · Kemenag 2023',
+    },
+    {
+      title: 'Putaran 7 · iman yang sempurna',
+      arabic:
+        'اللَّهُمَّ إِنِّي أَسْأَلُكَ إِيمَانًا كَامِلًا وَيَقِينًا صَادِقًا وَرِزْقًا وَاسِعًا وَحَلَالًا طَيِّبًا وَقَلْبًا خَاشِعًا وَلِسَانًا ذَاكِرًا وَتَوْبَةً نَصُوحًا',
+      latin:
+        'Allahumma innii as’aluka iimaanan kaamilan wa yaqiinan shaadiqan wa rizqan waasi‘an wa halaalan thayyiban wa qalban khaasyi‘an wa lisaanan dzaakiran wa taubatan nashuuhan.',
+      translation:
+        'Ya Allah, aku memohon kepada-Mu iman yang sempurna, keyakinan yang benar, rezeki yang luas, halal lagi baik, hati yang khusyuk, lisan yang selalu berzikir, dan tobat yang tulus.',
+      source: 'Doa tawaf putaran 7 · Kemenag 2023',
+    },
+  ],
+  sai: [
+    {
+      title: 'Leg 1 · Safa → Marwah',
+      arabic:
+        'اللَّهُ أَكْبَرُ اللَّهُ أَكْبَرُ اللَّهُ أَكْبَرُ، اللَّهُ أَكْبَرُ كَبِيرًا وَالْحَمْدُ لِلَّهِ كَثِيرًا وَسُبْحَانَ اللَّهِ الْعَظِيمِ وَبِحَمْدِهِ بُكْرَةً وَأَصِيلًا',
+      latin:
+        'Allahu akbar, Allahu akbar, Allahu akbar. Allahu akbar kabiira, walhamdulillahi katsiira, wa subhanallahil ‘azhiimi wa bihamdihi bukratan wa ashiilaa.',
+      translation:
+        'Allah Mahabesar, Allah Mahabesar, Allah Mahabesar. Allah Mahabesar dengan segala kebesaran-Nya, segala puji bagi Allah dengan pujian yang banyak, dan Mahasuci Allah Yang Mahaagung serta pujian bagi-Nya di waktu pagi dan petang.',
+      source: 'Dzikir sa’i leg 1 · Kemenag 2023',
+    },
+    {
+      title: 'Leg 2 · Marwah → Safa',
+      arabic:
+        'اللَّهُ أَكْبَرُ اللَّهُ أَكْبَرُ اللَّهُ أَكْبَرُ وَلِلَّهِ الْحَمْدُ، لَا إِلَهَ إِلَّا اللَّهُ الْوَاحِدُ الْفَرْدُ الصَّمَدُ',
+      latin:
+        'Allahu akbar, Allahu akbar, Allahu akbar wa lillahil hamd. Laa ilaaha illallahul waahidul fardush shamad.',
+      translation:
+        'Allah Mahabesar, Allah Mahabesar, Allah Mahabesar, dan segala puji bagi Allah. Tidak ada tuhan selain Allah Yang Maha Esa, Yang Maha Tunggal, dan tempat bergantung segala sesuatu.',
+      source: 'Dzikir sa’i leg 2 · Kemenag 2023',
+    },
+    {
+      title: 'Leg 3 · Safa → Marwah',
+      arabic:
+        'رَبَّنَا أَتْمِمْ لَنَا نُورَنَا وَاغْفِرْ لَنَا إِنَّكَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ، اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنَ الْخَيْرِ كُلِّهِ عَاجِلِهِ وَآجِلِهِ',
+      latin:
+        'Rabbanaa atmim lanaa nuuranaa waghfir lanaa innaka ‘alaa kulli syai’in qadiir. Allahumma innii as’aluka minal khairi kullihi ‘aajilihi wa aajilih.',
+      translation:
+        'Ya Tuhan kami, sempurnakanlah cahaya kami dan ampunilah kami; sesungguhnya Engkau Mahakuasa atas segala sesuatu. Ya Allah, aku memohon kepada-Mu segala kebaikan, yang segera maupun yang ditunda.',
+      source: 'Dzikir sa’i leg 3 · Kemenag 2023',
+    },
+    {
+      title: 'Leg 4 · Marwah → Safa',
+      arabic:
+        'اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ خَيْرِ مَا تَعْلَمُ، وَأَعُوذُ بِكَ مِنْ شَرِّ مَا تَعْلَمُ، وَأَسْتَغْفِرُكَ مِنْ كُلِّ مَا تَعْلَمُ، إِنَّكَ أَنْتَ عَلَّامُ الْغُيُوبِ',
+      latin:
+        'Allahumma innii as’aluka min khairi maa ta‘lamu, wa a‘uudzu bika min syarri maa ta‘lamu, wa astaghfiruka min kulli maa ta‘lamu, innaka anta ‘allaamul ghuyuub.',
+      translation:
+        'Ya Allah, aku memohon kepada-Mu kebaikan yang Engkau ketahui, aku berlindung kepada-Mu dari keburukan yang Engkau ketahui, dan aku memohon ampun kepada-Mu dari segala yang Engkau ketahui. Sesungguhnya Engkau Maha Mengetahui segala yang gaib.',
+      source: 'Dzikir sa’i leg 4 · Kemenag 2023',
+    },
+    {
+      title: 'Leg 5 · Safa → Marwah',
+      arabic:
+        'سُبْحَانَكَ مَا شَكَرْنَاكَ حَقَّ شُكْرِكَ يَا اللَّهُ، سُبْحَانَكَ مَا أَعْلَى شَأْنَكَ يَا اللَّهُ، اللَّهُمَّ حَبِّبْ إِلَيْنَا الْإِيمَانَ وَزَيِّنْهُ فِي قُلُوبِنَا',
+      latin:
+        'Subhaanaka maa syakarnaaka haqqa syukrika yaa Allah, subhaanaka maa a‘laa sya’naka yaa Allah. Allahumma habbib ilainal iimaana wa zayyinhu fii quluubinaa.',
+      translation:
+        'Mahasuci Engkau, kami belum mampu mensyukuri-Mu dengan syukur yang semestinya, ya Allah. Mahasuci Engkau, betapa agung kedudukan-Mu, ya Allah. Ya Allah, cintakanlah iman kepada kami dan hiasilah ia di dalam hati kami.',
+      source: 'Dzikir sa’i leg 5 · Kemenag 2023',
+    },
+    {
+      title: 'Leg 6 · Marwah → Safa',
+      arabic:
+        'اللَّهُمَّ إِنِّي أَسْأَلُكَ الْهُدَى وَالتَّقَى وَالْعَفَافَ وَالْغِنَى وَالْعَمَلَ لِمَا تُحِبُّ وَتَرْضَى',
+      latin:
+        'Allahumma innii as’alukal hudaa wat tuqaa wal ‘afaafa wal ghinaa wal ‘amala limaa tuhibbu wa tardaa.',
+      translation:
+        'Ya Allah, aku memohon kepada-Mu petunjuk, ketakwaan, kesucian diri, kecukupan, dan amal yang Engkau cintai dan ridai.',
+      source: 'Dzikir sa’i leg 6 · Kemenag 2023',
+    },
+    {
+      title: 'Leg 7 · Safa → Marwah',
+      arabic:
+        'اللَّهُمَّ حَبِّبْ إِلَيَّ الْإِيمَانَ وَزَيِّنْهُ فِي قَلْبِي، وَكَرِّهْ إِلَيَّ الْكُفْرَ وَالْفُسُوقَ وَالْعِصْيَانَ، وَاجْعَلْنِي مِنَ الرَّاشِدِينَ',
+      latin:
+        'Allahumma habbib ilayyal iimaana wa zayyinhu fii qalbii, wa karrih ilayyal kufra wal fusuuqa wal ‘ishyaana, waj‘alnii minar raasyidiin.',
+      translation:
+        'Ya Allah, cintakanlah iman kepadaku dan hiasilah ia di dalam hatiku, bencikanlah kepadaku kekufuran, kefasikan, dan kemaksiatan, dan jadikanlah aku termasuk orang-orang yang mendapat petunjuk.',
+      source: 'Dzikir sa’i leg 7 · Kemenag 2023',
+    },
+  ],
+};
+
+function getRouteDua(kind, completed = 0, done = false) {
+  const list = ROUTE_DUAS[kind] || [];
+  if (!list.length) return null;
+  const index = done ? list.length - 1 : Math.min(list.length - 1, Math.max(0, completed));
+  return { ...list[index], index };
+}
+
+function getPhaseRouteDua(state, phase) {
+  if (!['umrah', 'haji10'].includes(phase.id)) return null;
+  const rituals = RITUALS.filter(
+    (ritual) => ritual.phase === phase.id && (ritual.kind === 'tawaf' || ritual.kind === 'sai'),
+  );
+  if (!rituals.length) return null;
+  const ritual = rituals.find((item) => !isComplete(state, item.id)) || rituals[rituals.length - 1];
+  const route = state.routes?.[ritual.id] || { completed: 0 };
+  const dua = getRouteDua(ritual.kind, route.completed, isComplete(state, ritual.id));
+  return dua ? { ritual, dua } : null;
+}
+
 const RESTRICTIONS = [
   {
     id: 'parfum',
@@ -2550,7 +2719,7 @@ function Modal({ open, onClose, children, wide = false, dismissible = true, labe
       <div
         className={cx(
           'relative max-h-[92vh] w-full overflow-y-auto rounded-3xl border border-white/10 bg-[#0a1410] shadow-2xl shadow-black/60',
-          wide ? 'max-w-4xl' : 'max-w-xl',
+          wide ? 'max-w-2xl' : 'max-w-lg',
         )}
       >
         {children}
@@ -2837,8 +3006,8 @@ function StartScreen({ saved, onStart, onResume, onDiscard }) {
         </svg>
       </div>
 
-      <div className="relative mx-auto flex min-h-screen max-w-6xl flex-col justify-center px-4 py-8 sm:px-6 lg:py-10">
-        <div className="grid items-center gap-8 lg:grid-cols-[1.05fr_.95fr] lg:gap-12">
+      <div className="relative mx-auto flex min-h-screen max-w-[480px] flex-col justify-center px-4 py-8">
+        <div className="space-y-6">
           <section className="max-w-xl">
             <div className="flex flex-wrap items-center gap-2">
               <ToneBadge tone="emerald">
@@ -2848,18 +3017,18 @@ function StartScreen({ saved, onStart, onResume, onDiscard }) {
               <ToneBadge tone="slate">Proposed draft · belum ditinjau ulama</ToneBadge>
             </div>
 
-            <h1 className="mt-5 text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl">
+            <h1 className="mt-5 text-4xl font-semibold tracking-tight text-white">
               Manasik{' '}
               <span className="bg-gradient-to-r from-emerald-300 via-teal-200 to-amber-200 bg-clip-text text-transparent">
                 Tamattu
               </span>
             </h1>
-            <p className="mt-4 max-w-lg text-sm leading-relaxed text-slate-400 sm:text-base">
+            <p className="mt-4 max-w-lg text-sm leading-relaxed text-slate-400">
               Satu perjalanan interaktif dari miqat sampai Tawaf Wada. Belajar urutan, hitungan,
               purity, pelanggaran ihram, dan konsekuensinya lewat satu tabel aturan yang konsisten.
             </p>
 
-            <div className="mt-6 grid gap-2.5 sm:grid-cols-3">
+            <div className="mt-6 grid gap-2.5">
               {[
                 { Icon: Compass, title: 'Hitungan nyata', text: '7 putaran & 7 leg dengan guard rute.' },
                 { Icon: ShieldCheck, title: 'Konsekuensi', text: 'Rukun, wajib, sunnah punya hasil berbeda.' },
@@ -3515,27 +3684,27 @@ function TopBar({ state, onMenu, onGuide, onHistory, onReport }) {
   const mode = MODES[state.mode];
   return (
     <header className="sticky top-0 z-40 border-b border-white/[.06] bg-[#060c09]/85 backdrop-blur-2xl">
-      <div className="mx-auto flex max-w-[1600px] items-center gap-2 px-3 py-2.5 sm:gap-3 sm:px-5">
+      <div className="mx-auto flex max-w-[480px] items-center gap-2 px-3 py-2.5">
         <div className="flex min-w-0 items-center gap-2.5">
           <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-300 ring-1 ring-emerald-400/20">
             <KaabaMark className="h-5 w-5" />
           </span>
           <div className="min-w-0">
             <div className="flex items-center gap-2">
-              <h1 className="truncate text-sm font-semibold tracking-tight text-white sm:text-[15px]">
+              <h1 className="truncate text-[15px] font-semibold tracking-tight text-white">
                 Manasik Tamattu
               </h1>
               <span className="hidden rounded-md border border-white/10 bg-white/[.03] px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-wider text-slate-500 sm:inline">
                 Proto
               </span>
             </div>
-            <p className="hidden text-[10px] text-slate-500 sm:block">
+            <p className="hidden text-[10px] text-slate-500">
               {RULE_SOURCE.short} · {RULE_SOURCE.edition}
             </p>
           </div>
         </div>
 
-        <div className="ml-1 hidden min-w-0 items-center gap-2 border-l border-white/[.07] pl-3 lg:flex">
+        <div className="ml-1 hidden min-w-0 items-center gap-2 border-l border-white/[.07] pl-3">
           <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-white/[.04] text-slate-400">
             <phase.Icon className="h-3.5 w-3.5" />
           </span>
@@ -3547,7 +3716,7 @@ function TopBar({ state, onMenu, onGuide, onHistory, onReport }) {
           </div>
         </div>
 
-        <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
+        <div className="ml-auto flex items-center gap-1.5">
           <ToneBadge tone={mode.tone} className="hidden sm:inline-flex">
             <mode.Icon className="h-3 w-3" />
             {mode.label}
@@ -3555,27 +3724,30 @@ function TopBar({ state, onMenu, onGuide, onHistory, onReport }) {
           <button
             type="button"
             onClick={onGuide}
-            className="inline-flex h-8 items-center gap-1.5 rounded-lg border border-white/[.08] bg-white/[.03] px-2.5 text-[11px] font-medium text-slate-300 transition hover:border-white/20 hover:bg-white/[.06] hover:text-white"
+            aria-label="Panduan sesi"
+            title="Panduan sesi"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-white/[.08] bg-white/[.03] text-slate-300 transition hover:border-white/20 hover:bg-white/[.06] hover:text-white"
           >
             <BookOpen className="h-3.5 w-3.5" />
-            <span className="hidden md:inline">Panduan</span>
           </button>
           <button
             type="button"
             onClick={onHistory}
-            className="inline-flex h-8 items-center gap-1.5 rounded-lg border border-white/[.08] bg-white/[.03] px-2.5 text-[11px] font-medium text-slate-300 transition hover:border-white/20 hover:bg-white/[.06] hover:text-white"
+            aria-label="Riwayat sesi"
+            title="Riwayat sesi"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-white/[.08] bg-white/[.03] text-slate-300 transition hover:border-white/20 hover:bg-white/[.06] hover:text-white"
           >
             <History className="h-3.5 w-3.5" />
-            <span className="hidden md:inline">Riwayat</span>
           </button>
           {state.finished && (
             <button
               type="button"
               onClick={onReport}
-              className="inline-flex h-8 items-center gap-1.5 rounded-lg bg-amber-400 px-2.5 text-[11px] font-semibold text-amber-950 transition hover:bg-amber-300"
+              aria-label="Buka laporan"
+              title="Buka laporan"
+              className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-amber-400 text-amber-950 transition hover:bg-amber-300"
             >
               <ScrollText className="h-3.5 w-3.5" />
-              <span className="hidden md:inline">Laporan</span>
             </button>
           )}
           <button
@@ -3604,7 +3776,7 @@ function ResourceStrip({ state, dispatch, onRestore }) {
 
   return (
     <div className="border-b border-white/[.05] bg-[#07100c]/70">
-      <div className="mx-auto flex max-w-[1600px] items-center gap-1.5 overflow-x-auto px-3 py-2 sm:gap-2 sm:px-5">
+      <div className="mx-auto flex max-w-[480px] items-center gap-1.5 overflow-x-auto px-3 py-2">
         <StatChip
           Icon={Droplets}
           label="Purity"
@@ -3649,7 +3821,7 @@ function ResourceStrip({ state, dispatch, onRestore }) {
           value={`${done}/${required.length}`}
           tone={done === required.length ? 'emerald' : 'slate'}
         />
-        <div className="ml-auto hidden shrink-0 items-center gap-1.5 pl-2 lg:flex">
+        <div className="ml-auto hidden shrink-0 items-center gap-1.5 pl-2">
           {state.mode === 'latihan' && state.checkpoint && !state.finished && (
             <button
               type="button"
@@ -3717,7 +3889,7 @@ function PhaseRail({ state, compact = false }) {
   }
 
   return (
-    <aside className="rounded-3xl border border-white/[.07] bg-[#0a1410]/80 p-3.5 xl:sticky xl:top-[7.2rem]">
+    <aside className="rounded-3xl border border-white/[.07] bg-[#0a1410]/80 p-3.5">
       <div className="flex items-center justify-between gap-2">
         <p className="text-[10px] font-semibold uppercase tracking-[.18em] text-slate-500">Perjalanan</p>
         <span className="rounded-md border border-white/[.06] bg-white/[.02] px-1.5 py-0.5 font-mono text-[9px] text-slate-500">
@@ -3827,7 +3999,7 @@ function PhaseHero({ state, onAdvance, onFinish, onRestore, onReport }) {
   return (
     <section className="relative overflow-hidden rounded-3xl border border-white/[.08] bg-[#0a1410]/90 p-4 sm:p-5">
       <div className="pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-emerald-500/[.07] blur-3xl" />
-      <div className="relative flex flex-col gap-4 sm:flex-row sm:items-start">
+      <div className="relative flex flex-col gap-4">
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2">
             <ToneBadge tone={phase.tone}>
@@ -3838,10 +4010,10 @@ function PhaseHero({ state, onAdvance, onFinish, onRestore, onReport }) {
             <span className="h-1 w-1 rounded-full bg-slate-700" />
             <span className="text-[10px] text-slate-500">{phase.zoneLabel}</span>
           </div>
-          <h2 className="mt-3 text-xl font-semibold tracking-tight text-white sm:text-2xl">
+          <h2 className="mt-3 text-xl font-semibold tracking-tight text-white">
             {phase.headline}
           </h2>
-          <p className="mt-2 max-w-2xl text-[12px] leading-relaxed text-slate-400 sm:text-[13px]">
+          <p className="mt-2 max-w-2xl text-[12px] leading-relaxed text-slate-400">
             {phase.narrative}
           </p>
           <div className="mt-3 flex flex-wrap gap-1.5">
@@ -3856,7 +4028,7 @@ function PhaseHero({ state, onAdvance, onFinish, onRestore, onReport }) {
           </div>
         </div>
 
-        <div className="flex shrink-0 items-center gap-4 sm:flex-col sm:items-end sm:gap-2">
+        <div className="flex shrink-0 items-center gap-4">
           <CircleProgress value={done} max={required.length} tone={done === required.length ? 'emerald' : phase.tone} size={84} stroke={6}>
             <span className="text-lg font-semibold text-white">{done}</span>
             <span className="text-[9px] text-slate-500">dari {required.length} ritual</span>
@@ -3875,7 +4047,7 @@ function PhaseHero({ state, onAdvance, onFinish, onRestore, onReport }) {
         </div>
       </div>
 
-      <div className="relative mt-4 flex flex-col gap-2.5 border-t border-white/[.06] pt-3.5 sm:flex-row sm:items-center">
+      <div className="relative mt-4 flex flex-col gap-2.5 border-t border-white/[.06] pt-3.5">
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
             <span className={cx('flex h-6 w-6 items-center justify-center rounded-lg border', t.bg, t.border, t.text)}>
@@ -3887,7 +4059,7 @@ function PhaseHero({ state, onAdvance, onFinish, onRestore, onReport }) {
             </div>
           </div>
         </div>
-        <div className="flex flex-wrap items-center gap-2 sm:justify-end">
+        <div className="flex flex-wrap items-center gap-2">
           {state.mode === 'latihan' && state.checkpoint && (
             <GhostButton onClick={onRestore} className="py-1.5 text-[10px]">
               <RotateCcw className="h-3 w-3" />
@@ -4028,6 +4200,8 @@ function RouteConsole({ state, ritual, onClose, dispatch }) {
       </div>
       <ProgressBar value={route.completed} max={7} tone={isTawaf ? 'emerald' : 'sky'} className="mt-2" />
 
+      <RouteDuaCard ritual={ritual} route={route} />
+
       {needsWudu && (
         <div className="mt-3 rounded-xl border border-rose-400/25 bg-rose-500/[.08] p-3">
           <p className="flex items-center gap-2 text-[11px] font-medium text-rose-200">
@@ -4066,7 +4240,7 @@ function RouteConsole({ state, ritual, onClose, dispatch }) {
             </span>
             <span className="text-[9px] text-slate-600">ambang commit 99%</span>
           </div>
-          <div className="grid gap-2 sm:grid-cols-3">
+          <div className="grid gap-2">
             <button
               type="button"
               disabled={!block.ok}
@@ -4105,7 +4279,7 @@ function RouteConsole({ state, ritual, onClose, dispatch }) {
       ) : (
         <div className="mt-3">
           {!route.started ? (
-            <div className="grid gap-2 sm:grid-cols-2">
+            <div className="grid gap-2">
               <button
                 type="button"
                 disabled={!block.ok}
@@ -4126,7 +4300,7 @@ function RouteConsole({ state, ritual, onClose, dispatch }) {
               </button>
             </div>
           ) : (
-            <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+            <div className="flex flex-col gap-2">
               <button
                 type="button"
                 disabled={!block.ok}
@@ -4136,7 +4310,7 @@ function RouteConsole({ state, ritual, onClose, dispatch }) {
                 <Footprints className="h-3.5 w-3.5" />
                 Berjalan ke {route.position === 0 ? 'Marwah' : 'Safa'}
               </button>
-              <span className="text-center text-[10px] text-slate-500 sm:text-right">
+              <span className="text-center text-[10px] text-slate-500">
                 {route.completed}/7 leg · arah {route.position === 0 ? 'Safa → Marwah' : 'Marwah → Safa'}
               </span>
             </div>
@@ -4550,7 +4724,7 @@ function ViolationLab({ state, dispatch }) {
             satu catatan kafarat; tidak ada koin atau mata uang.
             {!isPractice && ' Di Simulasi, catatan ini tidak bisa dihapus.'}
           </p>
-          <div className="mt-2 grid gap-1.5 sm:grid-cols-2">
+          <div className="mt-2 grid gap-1.5">
             {allowed.map((restriction) => (
               <button
                 key={restriction.id}
@@ -4612,16 +4786,59 @@ function ViolationLab({ state, dispatch }) {
   );
 }
 
-function DuaCard({ phase }) {
-  const dua = DUAS[phase.dua];
+function RouteDuaCard({ ritual, route }) {
+  const isTawaf = ritual.kind === 'tawaf';
+  const dua = getRouteDua(ritual.kind, route.completed, route.completed >= 7);
   if (!dua) return null;
+  const label = `${isTawaf ? 'Putaran' : 'Leg'} ${dua.index + 1} dari 7`;
+
+  return (
+    <div
+      aria-live="polite"
+      className="relative mt-3 overflow-hidden rounded-2xl border border-amber-400/15 bg-gradient-to-br from-amber-500/[.06] via-[#0a1410] to-[#0a1410] p-3.5"
+    >
+      <div className="pointer-events-none absolute -right-8 -top-10 h-24 w-24 rounded-full bg-amber-400/10 blur-2xl" />
+      <div className="relative flex items-start justify-between gap-2">
+        <div className="flex items-center gap-2">
+          <Sparkles className="h-3.5 w-3.5 text-amber-300" />
+          <p className="text-[9px] font-semibold uppercase tracking-[.16em] text-amber-300/70">
+            Doa {isTawaf ? 'putaran' : 'leg'} berjalan
+          </p>
+        </div>
+        <span className={`shrink-0 rounded-md px-1.5 py-0.5 text-[9px] ${isTawaf ? 'bg-emerald-500/10 text-emerald-300' : 'bg-sky-500/10 text-sky-300'}`}>
+          {label}
+        </span>
+      </div>
+      <p className="relative mt-1.5 text-[10px] font-medium text-amber-100/80">{dua.title}</p>
+      <p
+        dir="rtl"
+        lang="ar"
+        className="relative mt-2 text-right font-arabic text-[16px] leading-[1.95] text-amber-50/90"
+      >
+        {dua.arabic}
+      </p>
+      <p className="relative mt-2 text-[10px] italic leading-relaxed text-slate-400">{dua.latin}</p>
+      <p className="relative mt-1 text-[10px] leading-relaxed text-slate-500">{dua.translation}</p>
+      <p className="relative mt-2 text-[9px] text-slate-600">
+        {dua.source} · bacaan pilihan, bukan syarat sah
+      </p>
+    </div>
+  );
+}
+
+function DuaCard({ phase, override }) {
+  const dua = override?.dua || DUAS[phase.dua];
+  if (!dua) return null;
+  const kicker = override
+    ? `Doa ${override.ritual.kind === 'tawaf' ? 'putaran' : 'leg'} ${override.dua.index + 1}`
+    : 'Dua fase';
   return (
     <div className="relative overflow-hidden rounded-2xl border border-amber-400/15 bg-gradient-to-br from-amber-500/[.06] via-[#0a1410] to-[#0a1410] p-3.5">
       <div className="pointer-events-none absolute -right-8 -top-10 h-24 w-24 rounded-full bg-amber-400/10 blur-2xl" />
       <div className="relative flex items-start justify-between gap-2">
         <div className="flex items-center gap-2">
           <Sparkles className="h-3.5 w-3.5 text-amber-300" />
-          <p className="text-[9px] font-semibold uppercase tracking-[.16em] text-amber-300/70">Dua fase</p>
+          <p className="text-[9px] font-semibold uppercase tracking-[.16em] text-amber-300/70">{kicker}</p>
         </div>
         <span className="text-[9px] text-slate-600">{dua.title}</span>
       </div>
@@ -4643,6 +4860,7 @@ function ActionsPanel({ state, dispatch, ui, setUi, onRestore }) {
   const phase = getPhase(state.phaseIndex);
   const rituals = RITUALS.filter((r) => r.phase === phase.id);
   const done = rituals.filter((r) => isComplete(state, r.id)).length;
+  const routeDua = getPhaseRouteDua(state, phase);
 
   return (
     <section className="rounded-3xl border border-white/[.07] bg-[#0a1410]/80 p-4">
@@ -4676,7 +4894,7 @@ function ActionsPanel({ state, dispatch, ui, setUi, onRestore }) {
         </div>
       </div>
 
-      <div className="mt-3 grid gap-2.5 sm:grid-cols-2">
+      <div className="mt-3 grid gap-2.5">
         {rituals.map((ritual) => (
           <RitualCard
             key={ritual.id}
@@ -4699,7 +4917,7 @@ function ActionsPanel({ state, dispatch, ui, setUi, onRestore }) {
           <PromptCard key={prompt.id} state={state} dispatch={dispatch} def={prompt} />
         ))}
         <ViolationLab state={state} dispatch={dispatch} />
-        <DuaCard phase={phase} />
+        <DuaCard phase={phase} override={routeDua} />
       </div>
     </section>
   );
@@ -4716,7 +4934,7 @@ function SidePanel({ state, ui, setUi, dispatch, onRestore }) {
     { id: 'history', label: 'Riwayat', Icon: History },
   ];
   return (
-    <aside id="side-panel" className="rounded-3xl border border-white/[.07] bg-[#0a1410]/80 p-3 xl:sticky xl:top-[7.2rem]">
+    <aside id="side-panel" className="rounded-3xl border border-white/[.07] bg-[#0a1410]/80 p-3">
       <div className="flex items-center gap-1 rounded-xl border border-white/[.06] bg-black/20 p-1">
         {tabs.map((tab) => (
           <button
@@ -5134,7 +5352,7 @@ function ConfirmModal({
           </div>
         </div>
         {children && <div className="mt-4">{children}</div>}
-        <div className="mt-5 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
+        <div className="mt-5 flex flex-col-reverse gap-2">
           <GhostButton onClick={onClose}>Batal</GhostButton>
           <button
             type="button"
@@ -5173,7 +5391,7 @@ function RemedyModal({ state, dispatch }) {
           </div>
         </div>
 
-        <div className="mt-4 grid gap-2 sm:grid-cols-3">
+        <div className="mt-4 grid gap-2">
           {REMEDIES.map((remedy) => (
             <button
               key={remedy.id}
@@ -5250,7 +5468,7 @@ function JamaratModal({ state, ui, setUi, dispatch }) {
           </div>
         </div>
 
-        <div className="mt-4 grid gap-2 sm:grid-cols-3">
+        <div className="mt-4 grid gap-2">
           {Object.values(JAMARAT).map((pillar) => {
             const active = required.includes(pillar.id);
             const count = counts[pillar.id] || 0;
@@ -5387,7 +5605,7 @@ function AuditModal({ mode, open, state, onClose, onConfirm }) {
           </div>
         </div>
 
-        <div className="mt-4 grid gap-2 sm:grid-cols-3">
+        <div className="mt-4 grid gap-2">
           <div className="rounded-xl border border-rose-400/20 bg-rose-500/[.06] p-2.5">
             <p className="text-[9px] font-semibold uppercase tracking-[.14em] text-rose-300/80">Rukun</p>
             <p className="mt-1 text-[10px] leading-relaxed text-slate-400">
@@ -5460,7 +5678,7 @@ function AuditModal({ mode, open, state, onClose, onConfirm }) {
           </RuleNote>
         )}
 
-        <div className="mt-5 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
+        <div className="mt-5 flex flex-col-reverse gap-2">
           <GhostButton onClick={onClose}>Kembali kerjakan</GhostButton>
           <button
             type="button"
@@ -5631,7 +5849,7 @@ function ReportView({ state, report, onClose, onRestart, onExit, onRestore }) {
   return (
     <div className="fixed inset-0 z-[95] overflow-y-auto bg-[#060c09]">
       <div className="sticky top-0 z-10 border-b border-white/[.07] bg-[#060c09]/90 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-3 sm:px-6">
+        <div className="mx-auto flex max-w-[480px] items-center gap-3 px-4 py-3">
           <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-300 ring-1 ring-emerald-400/20">
             <KaabaMark className="h-5 w-5" />
           </span>
@@ -5662,16 +5880,16 @@ function ReportView({ state, report, onClose, onRestart, onExit, onRestore }) {
         </div>
       </div>
 
-      <main className="mx-auto max-w-6xl px-4 py-5 sm:px-6 sm:py-7">
-        <section className={cx('relative overflow-hidden rounded-3xl border p-5 sm:p-6', t.border, t.bg)}>
+      <main className="mx-auto max-w-[480px] px-4 py-5">
+        <section className={cx('relative overflow-hidden rounded-3xl border p-5', t.border, t.bg)}>
           <div className={cx('pointer-events-none absolute -right-16 -top-20 h-64 w-64 rounded-full blur-3xl', t.bgStrong)} />
-          <div className="relative flex flex-col gap-4 sm:flex-row sm:items-start">
+          <div className="relative flex flex-col gap-4">
             <span className={cx('flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border', t.bgStrong, t.border, t.text)}>
               <meta.Icon className="h-7 w-7" />
             </span>
             <div className="min-w-0 flex-1">
               <div className="flex flex-wrap items-center gap-2">
-                <h1 className={cx('text-2xl font-semibold tracking-tight sm:text-3xl', t.text)}>{meta.label}</h1>
+                <h1 className={cx('text-2xl font-semibold tracking-tight', t.text)}>{meta.label}</h1>
                 <ToneBadge tone={MODES[report.mode]?.tone || 'sky'}>{MODES[report.mode]?.label}</ToneBadge>
                 <ToneBadge tone="slate">{GENDERS[report.gender]?.label}</ToneBadge>
                 {report.endedEarly && <ToneBadge tone="slate">dihentikan</ToneBadge>}
@@ -5703,11 +5921,11 @@ function ReportView({ state, report, onClose, onRestart, onExit, onRestore }) {
           </RuleNote>
         )}
 
-        <div className="mt-4 grid gap-4 lg:grid-cols-[1.05fr_.95fr]">
+        <div className="mt-4 space-y-4">
           <div className="space-y-4">
             <section className="rounded-2xl border border-white/[.07] bg-[#0a1410]/80 p-4">
               <SectionLabel icon={ListChecks}>Metrik dengan penyebut</SectionLabel>
-              <div className="grid gap-2 sm:grid-cols-2">
+              <div className="grid gap-2">
                 <MetricRow label="Ritual selesai" numerator={report.rituals.completed} denominator={report.rituals.total} tone="emerald" />
                 <MetricRow
                   label="Kuis tepat pada percobaan pertama"
@@ -5738,7 +5956,7 @@ function ReportView({ state, report, onClose, onRestart, onExit, onRestore }) {
 
               <div className="mt-4">
                 <p className="text-[9px] font-semibold uppercase tracking-[.16em] text-slate-500">Rute tervalidasi</p>
-                <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                <div className="mt-2 grid gap-2">
                   {report.routes.map((route) => (
                     <div key={route.id} className="rounded-xl border border-white/[.06] bg-white/[.02] p-2.5">
                       <div className="flex items-center justify-between gap-2">
@@ -5808,7 +6026,7 @@ function ReportView({ state, report, onClose, onRestart, onExit, onRestore }) {
 
             <section className="rounded-2xl border border-white/[.07] bg-[#0a1410]/80 p-4">
               <SectionLabel icon={Route}>Rangkaian ritual</SectionLabel>
-              <div className="grid gap-1.5 sm:grid-cols-2">
+              <div className="grid gap-1.5">
                 {report.rituals.rows.map((ritual) => (
                   <div
                     key={ritual.id}
@@ -5949,7 +6167,7 @@ function ReportView({ state, report, onClose, onRestart, onExit, onRestore }) {
           </div>
         </div>
 
-        <div className="mt-5 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
+        <div className="mt-5 flex flex-col-reverse gap-2">
           {report.checkpointAvailable && (
             <GhostButton onClick={onRestore}>
               <RotateCcw className="h-3.5 w-3.5" />
@@ -6168,25 +6386,22 @@ export default function App() {
   return (
     <>
       <style>{GLOBAL_CSS}</style>
-      <div className="min-h-screen bg-[#060c09] text-slate-100">
-        <TopBar
-          state={state}
-          onMenu={() => setUi((current) => ({ ...current, menuOpen: true }))}
-          onGuide={openGuide}
-          onHistory={openHistory}
-          onReport={openReport}
-        />
-        <ResourceStrip state={state} dispatch={dispatch} onRestore={openRestoreConfirm} />
+      <div className="min-h-screen bg-[#050a08] text-slate-100">
+        <div className="mx-auto min-h-screen w-full max-w-[480px] bg-[#060c09] shadow-[0_0_90px_rgba(0,0,0,.65)] sm:border-x sm:border-white/[.06]">
+          <TopBar
+            state={state}
+            onMenu={() => setUi((current) => ({ ...current, menuOpen: true }))}
+            onGuide={openGuide}
+            onHistory={openHistory}
+            onReport={openReport}
+          />
+          <ResourceStrip state={state} dispatch={dispatch} onRestore={openRestoreConfirm} />
 
-        <main className="mx-auto max-w-[1600px] px-3 py-3 sm:px-5 sm:py-4">
-          <div className="mb-3 xl:hidden">
-            <PhaseRail state={state} compact />
-          </div>
-          <div className="grid gap-3 xl:grid-cols-[248px_minmax(0,1fr)_380px] xl:items-start xl:gap-4">
-            <div className="hidden xl:block">
-              <PhaseRail state={state} />
+          <main className="px-3 py-3">
+            <div className="mb-3">
+              <PhaseRail state={state} compact />
             </div>
-            <div className="min-w-0 space-y-3">
+            <div className="space-y-3">
               <PhaseHero
                 state={state}
                 onAdvance={() => setUi((current) => ({ ...current, advanceOpen: true }))}
@@ -6196,25 +6411,25 @@ export default function App() {
               />
               <ScenePanel state={state} ui={ui} setUi={setUi} dispatch={dispatch} />
               <ActionsPanel state={state} dispatch={dispatch} ui={ui} setUi={setUi} onRestore={openRestoreConfirm} />
+              <SidePanel
+                state={state}
+                ui={ui}
+                setUi={setUi}
+                dispatch={dispatch}
+                onRestore={openRestoreConfirm}
+              />
             </div>
-            <SidePanel
-              state={state}
-              ui={ui}
-              setUi={setUi}
-              dispatch={dispatch}
-              onRestore={openRestoreConfirm}
-            />
-          </div>
-        </main>
+          </main>
 
-        <footer className="mx-auto max-w-[1600px] px-4 pb-6 pt-1 sm:px-6">
-          <div className="flex flex-col gap-2 border-t border-white/[.05] pt-3 text-[9px] text-slate-600 sm:flex-row sm:items-center sm:justify-between">
-            <p>
-              Manasik Tamattu · prototipe edukasi · sumber {report?.source.short || RULE_SOURCE.short} · bukan fatwa
-            </p>
-            <p className="font-mono">state v{SAVE_VERSION} · local-only · {state.turn} turn</p>
-          </div>
-        </footer>
+          <footer className="px-4 pb-6 pt-1">
+            <div className="flex flex-col gap-2 border-t border-white/[.05] pt-3 text-[9px] text-slate-600">
+              <p>
+                Manasik Tamattu · prototipe edukasi · sumber {report?.source.short || RULE_SOURCE.short} · bukan fatwa
+              </p>
+              <p className="font-mono">state v{SAVE_VERSION} · local-only · {state.turn} turn</p>
+            </div>
+          </footer>
+        </div>
       </div>
 
       <RemedyModal state={state} dispatch={dispatch} />

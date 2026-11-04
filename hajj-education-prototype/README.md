@@ -34,6 +34,8 @@ npm run preview
 ## Yang bisa dicoba
 
 - **Dua mode**: `Latihan` (checkpoint per fase, kuis bisa diulang) dan `Simulasi` (percobaan pertama dikunci, tanpa rollback).
+- **Layout portrait**: seluruh permainan memakai satu kolom maksimal 480 px, termasuk saat dibuka di desktop; navigasi, fase, scene, dan panel tindakan ditumpuk vertikal.
+- **Doa & dzikir tawaf/Sa'i per putaran/leg**: simulator menampilkan bacaan berbeda untuk masing-masing dari 7 putaran tawaf dan 7 leg Sa'i, lengkap dengan teks Arab, latin, terjemahan, dan sumber.
 - **Sembilan fase**: miqat, umrah, 8 Dzulhijjah, Arafah, Muzdalifah, 10 Dzulhijjah, 11–12 Dzulhijjah, Tawaf Wada.
 - **Dua puluh dua ritual** dengan klasifikasi `rukn` / `wajib` / `sunnah` dan audit keluar fase.
 - **Simulator tawaf**: tujuh putaran, arah searah, penolakan arah berlawanan, larangan memotong Mataf, purity sebagai syarat.
@@ -92,6 +94,7 @@ hajj-education-prototype/
 ## Catatan model
 
 - Sumber aturan sesi ini adalah **Kemenag 2023** (*Tuntunan Manasik Haji dan Umrah*, 1444 H/2023 M) sebagai satu tabel aturan, bukan pemilih madzhab.
+- Doa/dzikir per putaran tawaf dan per leg Sa'i adalah **bacaan pilihan** untuk latihan; tidak ada kewajiban doa yang berbeda pada setiap putaran. Teks dan terjemahan mengikuti rujukan umum Kemenag 2023.
 - Konten fiqh prototipe **belum ditinjau ulama** dan bukan fatwa. Beberapa nomor halaman sitasi adalah aproksimasi untuk kebutuhan prototipe.
 - Tidak ada backend, akun, telemetri, atau mata uang permainan. Data sesi hanya ada di `localStorage` perangkat.
 - Tampilan memakai Tailwind CSS, ikon `lucide-react`, dan ilustrasi SVG skematik. Ilustrasi bukan peta atau penggambaran Masjidil Haram yang akurat.
