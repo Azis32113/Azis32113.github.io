@@ -57,14 +57,14 @@ Folder ini adalah bagian dari user site `Azis32113.github.io`, dan Pages men-dep
 https://azis32113.github.io/hajj-education-prototype/
 ```
 
-Karena GitHub Pages menyajikan file apa adanya (tanpa langkah build), hasil build ikut di-commit:
+Karena GitHub Pages menyajikan file apa adanya (tanpa langkah build), hasil build ikut di-commit. Pastikan **Settings → Pages → Build and deployment → Source** diatur ke **Deploy from a branch**, branch `main`, folder `/(root)`.
 
 1. Ubah sumber di `src/`.
 2. Jalankan `npm run build`.
 3. Commit `index.html`, `assets/`, `favicon.svg`, dan `.nojekyll` beserta perubahan sumber.
 4. Push ke `main`; GitHub Pages akan menyajikan versi baru.
 
-Jangan meng-commit `dist/` (sudah diabaikan lewat `.gitignore`). `index.html` di root folder ini sengaja menunjuk ke `./assets/app.js` dan `./assets/app.css`, sehingga URL-nya benar baik di `https://<user>.github.io/<repo>/` maupun saat folder dijadikan root repository sendiri.
+Jangan meng-commit `dist/` (sudah diabaikan lewat `.gitignore`). `index.html` menunjuk ke bundle ber-hash (misalnya `assets/dev-DwOJd8li.js`), sehingga deploy baru tidak memakai JS lama dari cache. Alias `assets/app.js` dan `assets/app.css` tetap disalin untuk klien yang masih memegang `index.html` lama.
 
 Workflow `.github/workflows/deploy.yml` hanya terpakai jika folder ini dipisah menjadi repository sendiri dan dijadikan root, lalu **Settings → Pages → Source** diubah ke **GitHub Actions**. Untuk struktur user site saat ini, deployment dari branch sudah cukup.
 
