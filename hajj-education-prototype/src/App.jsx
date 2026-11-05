@@ -4064,7 +4064,6 @@ function PhaseHero({ state, onAdvance, onFinish, onRestore, onReport }) {
   const isLast = state.phaseIndex === PHASES.length - 1;
   const nextPhase = PHASES[state.phaseIndex + 1];
   const outcome = state.finished ? outcomeMeta(computeOutcome(state)) : null;
-  const t = tone(phase.tone);
 
   return (
     <section className="relative overflow-hidden rounded-3xl border border-white/[.08] bg-[#0a1410]/90 p-4 sm:p-5">
@@ -4083,19 +4082,31 @@ function PhaseHero({ state, onAdvance, onFinish, onRestore, onReport }) {
           <h2 className="mt-3 text-xl font-semibold tracking-tight text-white">
             {phase.headline}
           </h2>
-          <p className="mt-2 max-w-2xl text-[12px] leading-relaxed text-slate-400">
-            {phase.narrative}
-          </p>
-          <div className="mt-3 flex flex-wrap gap-1.5">
-            {phase.focus.map((item) => (
-              <span
-                key={item}
-                className="rounded-lg border border-white/[.06] bg-white/[.025] px-2 py-1 text-[10px] text-slate-400"
-              >
-                {item}
+          <details className="group mt-2 rounded-xl border border-white/[.05] bg-white/[.015]">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-2 px-2.5 py-2 text-[10px] font-medium text-slate-400 [&::-webkit-details-marker]:hidden">
+              <span className="flex items-center gap-1.5">
+                <Info className="h-3 w-3 text-slate-500" />
+                Tentang fase ini
               </span>
-            ))}
-          </div>
+              <ChevronDown className="h-3 w-3 text-slate-600 transition group-open:rotate-180" />
+            </summary>
+            <div className="border-t border-white/[.05] p-2.5">
+              <p className="max-w-2xl text-[11px] leading-relaxed text-slate-400">{phase.narrative}</p>
+              <div className="mt-2 flex flex-wrap gap-1.5">
+                {phase.focus.map((item) => (
+                  <span
+                    key={item}
+                    className="rounded-lg border border-white/[.06] bg-white/[.025] px-2 py-1 text-[9px] text-slate-400"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
+              <p className="mt-2 text-[9px] text-slate-500">
+                Titik istirahat: <span className="text-slate-300">{phase.restPoint.label}</span>
+              </p>
+            </div>
+          </details>
         </div>
 
         <div className="flex shrink-0 items-center gap-4">
@@ -4117,42 +4128,29 @@ function PhaseHero({ state, onAdvance, onFinish, onRestore, onReport }) {
         </div>
       </div>
 
-      <div className="relative mt-4 flex flex-col gap-2.5 border-t border-white/[.06] pt-3.5">
-        <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-2">
-            <span className={cx('flex h-6 w-6 items-center justify-center rounded-lg border', t.bg, t.border, t.text)}>
-              <Clock3 className="h-3 w-3" />
-            </span>
-            <div className="min-w-0">
-              <p className="text-[9px] font-semibold uppercase tracking-[.16em] text-slate-500">Titik istirahat</p>
-              <p className="truncate text-[11px] font-medium text-slate-300">{phase.restPoint.label}</p>
-            </div>
-          </div>
-        </div>
-        <div className="flex flex-wrap items-center gap-2">
-          {state.mode === 'latihan' && state.checkpoint && (
-            <GhostButton onClick={onRestore} className="py-1.5 text-[10px]">
-              <RotateCcw className="h-3 w-3" />
-              Checkpoint fase
-            </GhostButton>
-          )}
-          {state.finished ? (
-            <PrimaryButton onClick={onReport} className="py-2">
-              <Trophy className="h-3.5 w-3.5" />
-              Lihat laporan
-            </PrimaryButton>
-          ) : isLast ? (
-            <PrimaryButton onClick={onFinish} className="py-2">
-              <Trophy className="h-3.5 w-3.5" />
-              Selesaikan sesi
-            </PrimaryButton>
-          ) : (
-            <PrimaryButton onClick={onAdvance} className="py-2">
-              <ChevronRight className="h-3.5 w-3.5" />
-              Audit & lanjut
-            </PrimaryButton>
-          )}
-        </div>
+      <div className="relative mt-4 flex flex-wrap items-center gap-2 border-t border-white/[.06] pt-3.5">
+        {state.mode === 'latihan' && state.checkpoint && (
+          <GhostButton onClick={onRestore} className="py-1.5 text-[10px]">
+            <RotateCcw className="h-3 w-3" />
+            Checkpoint fase
+          </GhostButton>
+        )}
+        {state.finished ? (
+          <PrimaryButton onClick={onReport} className="py-2">
+            <Trophy className="h-3.5 w-3.5" />
+            Lihat laporan
+          </PrimaryButton>
+        ) : isLast ? (
+          <PrimaryButton onClick={onFinish} className="py-2">
+            <Trophy className="h-3.5 w-3.5" />
+            Selesaikan sesi
+          </PrimaryButton>
+        ) : (
+          <PrimaryButton onClick={onAdvance} className="py-2">
+            <ChevronRight className="h-3.5 w-3.5" />
+            Audit & lanjut
+          </PrimaryButton>
+        )}
       </div>
       {state.finished && (
         <div className="relative mt-2 flex items-center gap-2 text-[10px] text-slate-500">
@@ -4937,6 +4935,19 @@ function ActionsPanel({ state, dispatch, ui, setUi, onRestore }) {
   const rituals = RITUALS.filter((r) => r.phase === phase.id);
   const done = rituals.filter((r) => isComplete(state, r.id)).length;
   const routeDua = getPhaseRouteDua(state, phase);
+  const currentIndex = rituals.findIndex((ritual) => !isComplete(state, ritual.id));
+  const current = currentIndex >= 0 ? rituals[currentIndex] : null;
+  const next = currentIndex >= 0 ? rituals[currentIndex + 1] : null;
+  const promptDefs = PROMPTS.filter((prompt) => prompt.phase === phase.id);
+  const activePrompt =
+    promptDefs.find((def) => {
+      const promptState = state.prompts?.[def.id];
+      return promptState && !promptState.resolved;
+    }) || null;
+  const answeredPrompts = promptDefs.filter((def) => state.prompts?.[def.id]?.resolved).length;
+  const openObligations =
+    state.debts.filter((debt) => !debt.resolved).length +
+    state.ledger.filter((violation) => !violation.resolved).length;
 
   return (
     <section className="rounded-3xl border border-white/[.07] bg-[#0a1410]/80 p-4">
@@ -4944,56 +4955,161 @@ function ActionsPanel({ state, dispatch, ui, setUi, onRestore }) {
         <div>
           <div className="flex items-center gap-2">
             <ListChecks className="h-3.5 w-3.5 text-emerald-300" />
-            <h2 className="text-sm font-semibold text-white">Tindakan fase ini</h2>
+            <h2 className="text-sm font-semibold text-white">
+              {current ? `Langkah ${currentIndex + 1} dari ${rituals.length}` : 'Langkah fase'}
+            </h2>
             <span className="rounded-md border border-white/[.06] bg-white/[.02] px-1.5 py-0.5 text-[9px] text-slate-500">
               {done}/{rituals.length}
             </span>
           </div>
           <p className="mt-1 text-[10px] text-slate-500">
-            Urutan dijaga oleh prasyarat. Klasifikasi menentukan konsekuensi audit.
+            Satu langkah ditampilkan pada satu waktu. Selesaikan dulu, lalu lanjut.
           </p>
-        </div>
-        <div className="flex items-center gap-1.5">
-          {Object.entries(CLASSIFICATIONS).map(([key, value]) => (
-            <span
-              key={key}
-              className={cx(
-                'rounded-md border px-1.5 py-0.5 text-[9px]',
-                tone(value.tone).bg,
-                tone(value.tone).border,
-                tone(value.tone).text,
-              )}
-            >
-              {value.label}
-            </span>
-          ))}
         </div>
       </div>
 
-      <div className="mt-3 grid gap-2.5">
-        {rituals.map((ritual) => (
-          <RitualCard
-            key={ritual.id}
-            state={state}
-            ritual={ritual}
-            dispatch={dispatch}
-            onOpenRoute={(id) => setUi((u) => ({ ...u, activeRoute: id }))}
-            onOpenJamarat={(id) => setUi((u) => ({ ...u, jamaratOpen: id }))}
-          />
-        ))}
+      <div className="mt-3 flex items-center gap-1.5">
+        {rituals.map((ritual, index) => {
+          const complete = isComplete(state, ritual.id);
+          const active = index === currentIndex;
+          return (
+            <span
+              key={ritual.id}
+              title={ritual.name}
+              className={cx(
+                'flex h-5 w-5 items-center justify-center rounded-full border text-[9px] font-semibold',
+                complete
+                  ? 'border-emerald-400/25 bg-emerald-500/10 text-emerald-300'
+                  : active
+                    ? 'border-emerald-300/60 bg-emerald-400 text-emerald-950'
+                    : 'border-white/[.08] bg-white/[.02] text-slate-600',
+              )}
+            >
+              {complete ? <Check className="h-2.5 w-2.5" strokeWidth={3} /> : index + 1}
+            </span>
+          );
+        })}
       </div>
+
+      {current ? (
+        <>
+          <div className="mt-3 rounded-2xl border border-emerald-400/20 bg-emerald-500/[.035] p-1.5">
+            <p className="px-2 pb-1 pt-1 text-[9px] font-semibold uppercase tracking-[.16em] text-emerald-300/70">
+              Langkah sekarang
+            </p>
+            <RitualCard
+              state={state}
+              ritual={current}
+              dispatch={dispatch}
+              onOpenRoute={(id) => setUi((u) => ({ ...u, activeRoute: id }))}
+              onOpenJamarat={(id) => setUi((u) => ({ ...u, jamaratOpen: id }))}
+            />
+          </div>
+          {next && (
+            <p className="mt-2 text-[10px] text-slate-500">
+              Berikutnya: <span className="text-slate-300">{next.name}</span>
+            </p>
+          )}
+        </>
+      ) : (
+        <div className="mt-3 rounded-2xl border border-emerald-400/25 bg-emerald-500/[.08] p-3">
+          <p className="flex items-center gap-2 text-xs font-semibold text-emerald-200">
+            <CheckCircle2 className="h-4 w-4" />
+            Semua langkah fase ini selesai
+          </p>
+          <p className="mt-1 text-[10px] leading-relaxed text-emerald-200/70">
+            Lanjutkan dengan audit fase untuk menutup hari ini.
+          </p>
+        </div>
+      )}
+
+      <details className="group mt-3 rounded-xl border border-white/[.06] bg-white/[.015]">
+        <summary className="flex cursor-pointer list-none items-center justify-between gap-2 px-3 py-2 text-[10px] font-medium text-slate-400 [&::-webkit-details-marker]:hidden">
+          <span className="flex items-center gap-2">
+            <ListChecks className="h-3 w-3 text-slate-500" />
+            Peta langkah fase
+          </span>
+          <span className="flex items-center gap-1 text-[9px] text-slate-600">
+            {done}/{rituals.length}
+            <ChevronDown className="h-3 w-3 transition group-open:rotate-180" />
+          </span>
+        </summary>
+        <ol className="border-t border-white/[.05] p-2.5">
+          {rituals.map((ritual, index) => {
+            const complete = isComplete(state, ritual.id);
+            const active = index === currentIndex;
+            return (
+              <li key={ritual.id} className="flex items-center gap-2 py-1">
+                <span
+                  className={cx(
+                    'flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-[8px] font-semibold',
+                    complete
+                      ? 'bg-emerald-500/15 text-emerald-300'
+                      : active
+                        ? 'bg-emerald-400 text-emerald-950'
+                        : 'bg-white/[.04] text-slate-600',
+                  )}
+                >
+                  {complete ? <Check className="h-2.5 w-2.5" strokeWidth={3} /> : index + 1}
+                </span>
+                <span
+                  className={cx(
+                    'min-w-0 flex-1 truncate text-[10px]',
+                    complete ? 'text-slate-500 line-through' : active ? 'text-white' : 'text-slate-400',
+                  )}
+                >
+                  {ritual.name}
+                </span>
+                <ClassBadge classification={ritual.classification} small />
+              </li>
+            );
+          })}
+        </ol>
+      </details>
+
+      {activePrompt && (
+        <details className="group mt-2 rounded-xl border border-violet-400/15 bg-violet-500/[.025]">
+          <summary className="flex cursor-pointer list-none items-center justify-between gap-2 px-3 py-2 text-[10px] font-medium text-violet-200/80 [&::-webkit-details-marker]:hidden">
+            <span className="flex items-center gap-2">
+              <CircleHelp className="h-3 w-3" />
+              Kuis zona
+            </span>
+            <span className="flex items-center gap-1 text-[9px] text-violet-200/50">
+              {answeredPrompts}/{promptDefs.length}
+              <ChevronDown className="h-3 w-3 transition group-open:rotate-180" />
+            </span>
+          </summary>
+          <div className="border-t border-violet-400/10 p-2.5">
+            <PromptCard state={state} dispatch={dispatch} def={activePrompt} />
+          </div>
+        </details>
+      )}
+      {promptDefs.length > 0 && answeredPrompts === promptDefs.length && (
+        <p className="mt-2 flex items-center gap-2 text-[10px] text-emerald-300/70">
+          <CheckCircle2 className="h-3 w-3" />
+          Kuis zona selesai · {answeredPrompts}/{promptDefs.length}
+        </p>
+      )}
 
       <div className="mt-3">
         <UtilityBar state={state} dispatch={dispatch} onRestore={onRestore} />
       </div>
 
-      <div className="mt-3 grid gap-3">
-        <DebtLedger state={state} dispatch={dispatch} />
-        {PROMPTS.filter((prompt) => prompt.phase === phase.id).map((prompt) => (
-          <PromptCard key={prompt.id} state={state} dispatch={dispatch} def={prompt} />
-        ))}
+      <div className="mt-3 grid gap-2.5">
+        {openObligations > 0 && <DebtLedger state={state} dispatch={dispatch} />}
+        <details className="group rounded-xl border border-white/[.06] bg-white/[.015]">
+          <summary className="flex cursor-pointer list-none items-center justify-between gap-2 px-3 py-2 text-[10px] font-medium text-slate-400 [&::-webkit-details-marker]:hidden">
+            <span className="flex items-center gap-2">
+              <Sparkles className="h-3 w-3 text-amber-300/70" />
+              Doa & dzikir fase
+            </span>
+            <ChevronDown className="h-3 w-3 text-slate-600 transition group-open:rotate-180" />
+          </summary>
+          <div className="border-t border-white/[.05] p-2.5">
+            <DuaCard phase={phase} override={routeDua} />
+          </div>
+        </details>
         <ViolationLab state={state} dispatch={dispatch} />
-        <DuaCard phase={phase} override={routeDua} />
       </div>
     </section>
   );

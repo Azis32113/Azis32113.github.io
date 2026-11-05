@@ -38,6 +38,7 @@ npm run preview
 - **Dua mode**: `Latihan` (checkpoint per fase, kuis bisa diulang) dan `Simulasi` (percobaan pertama dikunci, tanpa rollback).
 - **Layout portrait**: seluruh permainan memakai satu kolom maksimal 480 px, termasuk saat dibuka di desktop; navigasi, fase, scene, dan panel tindakan ditumpuk vertikal.
 - **Doa & dzikir tawaf/Sa'i per putaran/leg**: simulator menampilkan bacaan berbeda untuk masing-masing dari 7 putaran tawaf dan 7 leg Sa'i, lengkap dengan teks Arab, latin, terjemahan, dan sumber.
+- **Alur per langkah**: setiap fase hanya menampilkan satu langkah aktif; peta langkah, kuis zona, doa fase, dan uji pelanggaran dilipat sampai dibutuhkan.
 - **Sembilan fase**: miqat, umrah, 8 Dzulhijjah, Arafah, Muzdalifah, 10 Dzulhijjah, 11–12 Dzulhijjah, Tawaf Wada.
 - **Dua puluh dua ritual** dengan klasifikasi `rukn` / `wajib` / `sunnah` dan audit keluar fase.
 - **Simulator tawaf top-down**: karakter tampil dari atas dan bergerak mengikuti langkah manual mengelilingi Ka'bah sambil menghindari kerumunan.
