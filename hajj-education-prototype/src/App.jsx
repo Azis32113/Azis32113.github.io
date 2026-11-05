@@ -3749,7 +3749,7 @@ function SceneArt({ state, phase, activeRoute }) {
 /*  GAME CHROME                                                        */
 /* ------------------------------------------------------------------ */
 
-function TopBar({ state, onMenu, onGuide, onHistory, onReport }) {
+function TopBar({ state, onMenu, onReport }) {
   const phase = getPhase(state.phaseIndex);
   const mode = MODES[state.mode];
   return (
@@ -3791,24 +3791,6 @@ function TopBar({ state, onMenu, onGuide, onHistory, onReport }) {
             <mode.Icon className="h-3 w-3" />
             {mode.label}
           </ToneBadge>
-          <button
-            type="button"
-            onClick={onGuide}
-            aria-label="Panduan sesi"
-            title="Panduan sesi"
-            className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-white/[.08] bg-white/[.03] text-slate-300 transition hover:border-white/20 hover:bg-white/[.06] hover:text-white"
-          >
-            <BookOpen className="h-3.5 w-3.5" />
-          </button>
-          <button
-            type="button"
-            onClick={onHistory}
-            aria-label="Riwayat sesi"
-            title="Riwayat sesi"
-            className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-white/[.08] bg-white/[.03] text-slate-300 transition hover:border-white/20 hover:bg-white/[.06] hover:text-white"
-          >
-            <History className="h-3.5 w-3.5" />
-          </button>
           {state.finished && (
             <button
               type="button"
@@ -5119,44 +5101,6 @@ function ActionsPanel({ state, dispatch, ui, setUi, onRestore }) {
 /*  SIDE PANEL                                                         */
 /* ------------------------------------------------------------------ */
 
-function SidePanel({ state, ui, setUi, dispatch, onRestore }) {
-  const tabs = [
-    { id: 'log', label: 'Jurnal', Icon: Activity },
-    { id: 'guide', label: 'Panduan', Icon: BookOpen },
-    { id: 'history', label: 'Riwayat', Icon: History },
-  ];
-  return (
-    <aside id="side-panel" className="rounded-3xl border border-white/[.07] bg-[#0a1410]/80 p-3">
-      <div className="flex items-center gap-1 rounded-xl border border-white/[.06] bg-black/20 p-1">
-        {tabs.map((tab) => (
-          <button
-            key={tab.id}
-            type="button"
-            onClick={() => setUi((u) => ({ ...u, sideTab: tab.id }))}
-            className={cx(
-              'flex flex-1 items-center justify-center gap-1.5 rounded-lg px-2 py-1.5 text-[10px] font-medium transition',
-              ui.sideTab === tab.id
-                ? 'bg-white/[.08] text-white shadow-sm'
-                : 'text-slate-500 hover:text-slate-300',
-            )}
-          >
-            <tab.Icon className="h-3 w-3" />
-            {tab.label}
-          </button>
-        ))}
-      </div>
-
-      <div className="mt-3">
-        {ui.sideTab === 'log' && <LogPanel state={state} />}
-        {ui.sideTab === 'guide' && <GuidePanel state={state} onRestore={onRestore} />}
-        {ui.sideTab === 'history' && (
-          <HistoryPanel state={state} ui={ui} setUi={setUi} onRestore={onRestore} />
-        )}
-      </div>
-    </aside>
-  );
-}
-
 function LogPanel({ state }) {
   const [filter, setFilter] = useState('all');
   const filters = [
@@ -5913,8 +5857,57 @@ function GuideModal({ open, onClose, state, onRestore }) {
   );
 }
 
-function MenuModal({ open, state, onClose, onGuide, onHistory, onReport, onRestore, onEndEarly, onExit }) {
+function JournalModal({ open, onClose, state }) {
+  return (
+    <Modal open={open} onClose={onClose} wide label="Jurnal aktivitas">
+      <div className="flex items-center justify-between gap-3 border-b border-white/[.07] px-5 py-3.5">
+        <div className="flex items-center gap-2">
+          <Activity className="h-4 w-4 text-emerald-300" />
+          <h2 className="text-sm font-semibold text-white">Jurnal aktivitas</h2>
+        </div>
+        <button
+          type="button"
+          onClick={onClose}
+          className="flex h-7 w-7 items-center justify-center rounded-lg border border-white/[.08] text-slate-500 transition hover:text-white"
+          aria-label="Tutup jurnal"
+        >
+          <X className="h-3.5 w-3.5" />
+        </button>
+      </div>
+      <div className="p-5">
+        <LogPanel state={state} />
+      </div>
+    </Modal>
+  );
+}
+
+function HistoryModal({ open, onClose, state, ui, setUi, onRestore }) {
+  return (
+    <Modal open={open} onClose={onClose} wide label="Riwayat sesi">
+      <div className="flex items-center justify-between gap-3 border-b border-white/[.07] px-5 py-3.5">
+        <div className="flex items-center gap-2">
+          <History className="h-4 w-4 text-sky-300" />
+          <h2 className="text-sm font-semibold text-white">Riwayat & replay</h2>
+        </div>
+        <button
+          type="button"
+          onClick={onClose}
+          className="flex h-7 w-7 items-center justify-center rounded-lg border border-white/[.08] text-slate-500 transition hover:text-white"
+          aria-label="Tutup riwayat"
+        >
+          <X className="h-3.5 w-3.5" />
+        </button>
+      </div>
+      <div className="p-5">
+        <HistoryPanel state={state} ui={ui} setUi={setUi} onRestore={onRestore} />
+      </div>
+    </Modal>
+  );
+}
+
+function MenuModal({ open, state, onClose, onJournal, onGuide, onHistory, onReport, onRestore, onEndEarly, onExit }) {
   const items = [
+    { Icon: Activity, label: 'Jurnal aktivitas', detail: 'Catatan langkah dan kejadian sesi', onClick: onJournal },
     { Icon: BookOpen, label: 'Panduan & aturan', detail: 'Cara main, klasifikasi, sumber aturan', onClick: onGuide },
     { Icon: History, label: 'Riwayat & replay', detail: 'Pratinjau snapshot read-only', onClick: onHistory },
     ...(state.finished
@@ -6424,7 +6417,8 @@ const DEFAULT_UI = {
   restoreOpen: false,
   activeRoute: null,
   jamaratOpen: null,
-  sideTab: 'log',
+  journalOpen: false,
+  historyOpen: false,
   historyCursor: null,
 };
 
@@ -6454,6 +6448,8 @@ export default function App() {
       setUi((current) => ({
         ...current,
         guideOpen: false,
+        journalOpen: false,
+        historyOpen: false,
         menuOpen: false,
         advanceOpen: false,
         finishOpen: false,
@@ -6483,7 +6479,7 @@ export default function App() {
   const resume = () => {
     if (!saved) return;
     const next = deepClone(saved);
-    setUi({ ...DEFAULT_UI, reportOpen: Boolean(next.finished), sideTab: 'log' });
+    setUi({ ...DEFAULT_UI, reportOpen: Boolean(next.finished) });
     prevFinished.current = Boolean(next.finished);
     dispatch({ type: 'LOAD_SAVE', save: next });
   };
@@ -6497,13 +6493,12 @@ export default function App() {
     setSaved(null);
   };
 
+  const openJournal = () => {
+    setUi((current) => ({ ...current, journalOpen: true, menuOpen: false }));
+  };
+
   const openHistory = () => {
-    setUi((current) => ({ ...current, sideTab: 'history', menuOpen: false }));
-    if (typeof document !== 'undefined') {
-      setTimeout(() => {
-        document.getElementById('side-panel')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 30);
-    }
+    setUi((current) => ({ ...current, historyOpen: true, menuOpen: false }));
   };
 
   const openGuide = () => {
@@ -6561,7 +6556,14 @@ export default function App() {
   };
 
   const openRestoreConfirm = () => {
-    setUi((current) => ({ ...current, restoreOpen: true, menuOpen: false, guideOpen: false }));
+    setUi((current) => ({
+      ...current,
+      restoreOpen: true,
+      menuOpen: false,
+      guideOpen: false,
+      journalOpen: false,
+      historyOpen: false,
+    }));
   };
 
   if (!state.started) {
@@ -6583,8 +6585,6 @@ export default function App() {
           <TopBar
             state={state}
             onMenu={() => setUi((current) => ({ ...current, menuOpen: true }))}
-            onGuide={openGuide}
-            onHistory={openHistory}
             onReport={openReport}
           />
           <ResourceStrip state={state} dispatch={dispatch} onRestore={openRestoreConfirm} />
@@ -6603,13 +6603,6 @@ export default function App() {
               />
               <ScenePanel state={state} ui={ui} setUi={setUi} dispatch={dispatch} />
               <ActionsPanel state={state} dispatch={dispatch} ui={ui} setUi={setUi} onRestore={openRestoreConfirm} />
-              <SidePanel
-                state={state}
-                ui={ui}
-                setUi={setUi}
-                dispatch={dispatch}
-                onRestore={openRestoreConfirm}
-              />
             </div>
           </main>
 
@@ -6646,10 +6639,24 @@ export default function App() {
         state={state}
         onRestore={openRestoreConfirm}
       />
+      <JournalModal
+        open={ui.journalOpen}
+        onClose={() => setUi((current) => ({ ...current, journalOpen: false }))}
+        state={state}
+      />
+      <HistoryModal
+        open={ui.historyOpen}
+        onClose={() => setUi((current) => ({ ...current, historyOpen: false }))}
+        state={state}
+        ui={ui}
+        setUi={setUi}
+        onRestore={openRestoreConfirm}
+      />
       <MenuModal
         open={ui.menuOpen}
         state={state}
         onClose={() => setUi((current) => ({ ...current, menuOpen: false }))}
+        onJournal={openJournal}
         onGuide={openGuide}
         onHistory={openHistory}
         onReport={openReport}
