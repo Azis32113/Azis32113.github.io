@@ -3253,72 +3253,140 @@ function OrbitMarker({ t = 0, cx = 320, cy = 172, rx = 198, ry = 84, color = '#3
   );
 }
 
-function TawafMarker({ t = 0 }) {
-  return <OrbitMarker t={t} />;
-}
+const TAWAF_CROWD = (() => {
+  const pseudo = (n) => {
+    const value = Math.sin(n * 12.9898) * 43758.5453;
+    return value - Math.floor(value);
+  };
+  return Array.from({ length: 42 }, (_, index) => {
+    const cluster = index % 6;
+    const baseAngle = (cluster / 6) * Math.PI * 2 + 0.4;
+    return {
+      angle: baseAngle + (pseudo(index + 1) - 0.5) * 0.24,
+      radius: 98 + pseudo(index + 11) * 52,
+      size: 2.6 + pseudo(index + 21) * 1.7,
+      tone: pseudo(index + 31) > 0.55 ? '#5f8075' : '#45655c',
+    };
+  });
+})();
 
 function KaabaScene({ route }) {
+  const completed = route?.completed || 0;
+  const progress = Math.min(7, completed + (route?.t || 0));
+  const progressRef = useRef(progress);
+  const playerRef = useRef(null);
+  const labelRef = useRef(null);
+  progressRef.current = progress;
+
+  useEffect(() => {
+    let frame;
+    let last = performance.now();
+    let angle = -Math.PI / 2 - progressRef.current * Math.PI * 2;
+    let avoid = 0;
+
+    const draw = (now) => {
+      const dt = Math.min(0.05, (now - last) / 1000);
+      last = now;
+
+      const target = -Math.PI / 2 - progressRef.current * Math.PI * 2;
+      if (target < angle - Math.PI * 2.5) angle = target;
+      angle += (target - angle) * Math.min(1, dt * 6);
+
+      let targetAvoid = 0;
+      for (const person of TAWAF_CROWD) {
+        const ahead = Math.atan2(Math.sin(angle - person.angle), Math.cos(angle - person.angle));
+        if (
+          ahead > 0.03 &&
+          ahead < 0.4 &&
+          Math.abs(person.radius - (126 + avoid)) < 17
+        ) {
+          targetAvoid = person.radius <= 126 ? 20 : -20;
+          break;
+        }
+      }
+      avoid += (targetAvoid - avoid) * Math.min(1, dt * 5);
+
+      const radius = Math.max(98, Math.min(154, 126 + avoid));
+      const x = 320 + radius * Math.cos(angle);
+      const y = 180 + radius * Math.sin(angle);
+      const nextAngle = angle - 0.02;
+      const nx = 320 + radius * Math.cos(nextAngle);
+      const ny = 180 + radius * Math.sin(nextAngle);
+      const facing = (Math.atan2(ny - y, nx - x) * 180) / Math.PI;
+
+      playerRef.current?.setAttribute('transform', `translate(${x} ${y}) rotate(${facing})`);
+      labelRef.current?.setAttribute('transform', `translate(${x} ${y - 19})`);
+
+      frame = requestAnimationFrame(draw);
+    };
+
+    frame = requestAnimationFrame(draw);
+    return () => cancelAnimationFrame(frame);
+  }, []);
+
   return (
-    <svg viewBox="0 0 640 320" className="h-full w-full" role="img" aria-label="Ilustrasi Ka'bah dan lintasan tawaf">
+    <svg viewBox="0 0 640 360" className="h-full w-full" role="img" aria-label="Tampak atas Ka'bah; karakter berjalan otomatis mengelilingi Ka'bah sambil menghindari kerumunan">
       <defs>
-        <linearGradient id="kaabaSky" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#0a1d26" />
-          <stop offset="55%" stopColor="#081713" />
-          <stop offset="100%" stopColor="#060e0b" />
-        </linearGradient>
-        <radialGradient id="kaabaGlow" cx="50%" cy="44%" r="52%">
-          <stop offset="0%" stopColor="#fbbf24" stopOpacity=".24" />
-          <stop offset="100%" stopColor="#fbbf24" stopOpacity="0" />
+        <radialGradient id="matafTopGlow" cx="50%" cy="50%" r="55%">
+          <stop offset="0%" stopColor="#0e3329" />
+          <stop offset="100%" stopColor="#06110d" />
         </radialGradient>
-        <linearGradient id="kaabaGold" x1="0" y1="0" x2="1" y2="0">
+        <linearGradient id="kaabaTopGold" x1="0" y1="0" x2="1" y2="0">
           <stop offset="0%" stopColor="#b45309" />
           <stop offset="45%" stopColor="#fbbf24" />
           <stop offset="100%" stopColor="#b45309" />
         </linearGradient>
       </defs>
-      <rect width="640" height="320" fill="url(#kaabaSky)" />
-      <circle cx="320" cy="156" r="160" fill="url(#kaabaGlow)" />
-      <ellipse cx="320" cy="176" rx="260" ry="112" fill="#0b2821" opacity=".8" />
-      <ellipse cx="320" cy="176" rx="246" ry="102" fill="none" stroke="#34d399" strokeOpacity=".14" strokeWidth="22" />
-      <ellipse cx="320" cy="176" rx="198" ry="82" fill="none" stroke="#fbbf24" strokeOpacity=".3" strokeWidth="2" strokeDasharray="3 10" />
-      <ellipse cx="320" cy="176" rx="218" ry="91" fill="none" stroke="#94a3b8" strokeOpacity=".1" strokeWidth="1" />
-      {Array.from({ length: 7 }).map((_, index) => {
-        const angle = -Math.PI / 2 - (index / 7) * Math.PI * 2;
-        const x1 = 320 + 190 * Math.cos(angle);
-        const y1 = 176 + 78 * Math.sin(angle);
-        const x2 = 320 + 206 * Math.cos(angle);
-        const y2 = 176 + 86 * Math.sin(angle);
+
+      <rect width="640" height="360" fill="#050f0b" />
+      <circle cx="320" cy="180" r="184" fill="url(#matafTopGlow)" />
+      <circle cx="320" cy="180" r="170" fill="none" stroke="#12362b" strokeWidth="20" opacity=".7" />
+      <circle cx="320" cy="180" r="136" fill="none" stroke="#94a3b8" strokeOpacity=".12" strokeWidth="1" />
+      <circle cx="320" cy="180" r="132" fill="none" stroke="#fbbf24" strokeOpacity=".24" strokeWidth="2" strokeDasharray="3 9" />
+      <circle cx="320" cy="180" r="90" fill="#06110d" stroke="#1d4237" strokeWidth="1" />
+
+      <g>
+        <rect x="286" y="146" width="68" height="66" rx="3" fill="#04140e" stroke="#34d399" strokeOpacity=".35" />
+        <rect x="286" y="166" width="68" height="9" fill="url(#kaabaTopGold)" opacity=".92" />
+        <rect x="291" y="151" width="58" height="56" rx="2" fill="none" stroke="#fbbf24" strokeOpacity=".18" />
+        <rect x="311" y="197" width="18" height="5" rx="1" fill="#fbbf24" opacity=".75" />
+        <text x="320" y="187" textAnchor="middle" fill="#fef3c7" fontSize="7" letterSpacing="2" opacity=".6">
+          KA’BAH
+        </text>
+      </g>
+
+      <line x1="320" y1="34" x2="320" y2="62" stroke="#fbbf24" strokeWidth="3" strokeLinecap="round" />
+      <text x="334" y="35" textAnchor="start" fill="#fbbf24" fontSize="7" letterSpacing="2" opacity=".7">
+        HAJAR ASWAD
+      </text>
+
+      {TAWAF_CROWD.map((person, index) => {
+        const x = 320 + person.radius * Math.cos(person.angle);
+        const y = 180 + person.radius * Math.sin(person.angle);
         return (
-          <line
-            key={index}
-            x1={x1}
-            y1={y1}
-            x2={x2}
-            y2={y2}
-            stroke="#fbbf24"
-            strokeOpacity=".35"
-            strokeWidth="1.5"
-          />
+          <g key={index} transform={`translate(${x} ${y})`} opacity=".8">
+            <ellipse rx={person.size + 1.5} ry={person.size} fill={person.tone} />
+            <circle cy={-person.size * 0.55} r={person.size * 0.72} fill="#6c8a80" />
+          </g>
         );
       })}
-      <g transform="translate(320 174)">
-        <ellipse cx="0" cy="50" rx="60" ry="17" fill="#000" opacity=".4" />
-        <path d="M-43 -34 L-31 -48 L51 -48 L39 -34Z" fill="#0f766e" />
-        <rect x="-43" y="-34" width="82" height="80" rx="4" fill="#052e22" stroke="#34d399" strokeOpacity=".38" />
-        <rect x="-43" y="-8" width="82" height="11" fill="url(#kaabaGold)" opacity=".9" />
-        <rect x="-11" y="18" width="22" height="28" rx="2" fill="#020b08" stroke="#fbbf24" strokeOpacity=".45" />
-        <path d="M-43 -34 L-43 -4 L39 -4 L39 -34" fill="none" stroke="#fbbf24" strokeOpacity=".22" />
-        <path d="M-43 4 L39 4" stroke="#fbbf24" strokeOpacity=".12" />
+
+      <g ref={playerRef}>
+        <circle r="16" fill="#34d399" opacity=".12" />
+        <circle r="11" fill="none" stroke="#34d399" strokeOpacity=".45" strokeWidth="1.2">
+          <animate attributeName="r" values="8;15;8" dur="2s" repeatCount="indefinite" />
+          <animate attributeName="opacity" values=".5;.05;.5" dur="2s" repeatCount="indefinite" />
+        </circle>
+        <ellipse rx="7.5" ry="5" fill="#10b981" stroke="#ecfdf5" strokeWidth="1.4" />
+        <circle cx="5" cy="0" r="3.2" fill="#ecfdf5" stroke="#065f46" strokeWidth=".9" />
+        <path d="M11 -2.6 L17 0 L11 2.6Z" fill="#a7f3d0" opacity=".9" />
       </g>
-      {route && route.completed < 7 && <TawafMarker t={route.t || 0} />}
-      <text x="320" y="292" textAnchor="middle" fill="#94a3b8" fontSize="9" letterSpacing="4" opacity=".55">
-        MATA F · KA'BAH
-      </text>
-      <text x="58" y="56" fill="#34d399" fontSize="9" letterSpacing="3" opacity=".6">
-        ARAH SEARAH
-      </text>
-      <path d="M120 62 C150 47, 180 47, 208 61" fill="none" stroke="#34d399" strokeOpacity=".45" strokeWidth="1.4" strokeDasharray="4 5" />
-      <path d="M208 61 l-7 -2 3 7Z" fill="#34d399" opacity=".6" />
+      <g ref={labelRef}>
+        <text textAnchor="middle" fill="#a7f3d0" fontSize="7" letterSpacing="1.5" opacity=".85">
+          ANDA
+        </text>
+      </g>
+
     </svg>
   );
 }
@@ -3667,7 +3735,9 @@ function SceneArt({ state, phase, activeRoute }) {
     if (activeRoute === 'tawafIfadah') return <KaabaScene route={route} />;
     return <MinaScene highlight={['aqabah']} pebbles={state.pebbles} />;
   }
-  if (phase.id === 'wada') return <WadaScene route={route} />;
+  if (phase.id === 'wada') {
+    return activeRoute === 'tawafWada' ? <KaabaScene route={route} /> : <WadaScene route={null} />;
+  }
   if (phase.id === 'umrah') {
     if (activeRoute === 'saiUmrah') return <SaiScene route={route} />;
     return <KaabaScene route={activeRoute === 'tawafUmrah' ? route : null} />;
@@ -4100,6 +4170,7 @@ function ScenePanel({ state, ui, setUi, dispatch }) {
   const phase = getPhase(state.phaseIndex);
   const activeRoute = ui.activeRoute;
   const routeRitual = activeRoute ? RITUAL_MAP[activeRoute] : null;
+  const isTawafRoute = routeRitual?.kind === 'tawaf';
   const jamaratHighlight =
     phase.id === 'haji10' ? ['aqabah'] : phase.id === 'mina11' || phase.id === 'mina12' ? ['ula', 'wusta', 'aqabah'] : [];
 
@@ -4119,7 +4190,7 @@ function ScenePanel({ state, ui, setUi, dispatch }) {
               </div>
             </div>
             <span className="rounded-md border border-white/10 bg-black/25 px-2 py-1 text-[9px] text-slate-400 backdrop-blur">
-              Ilustrasi skematik
+              {isTawafRoute ? 'Tampak atas' : 'Ilustrasi skematik'}
             </span>
           </div>
           <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#08120e] via-[#08120e]/80 to-transparent p-3 pt-12">
@@ -4128,7 +4199,11 @@ function ScenePanel({ state, ui, setUi, dispatch }) {
                 <p className="text-[10px] font-semibold uppercase tracking-[.16em] text-emerald-300/70">
                   {phase.short}
                 </p>
-                <p className="mt-0.5 max-w-lg text-[11px] leading-relaxed text-slate-300">{phase.tip}</p>
+                <p className="mt-0.5 max-w-lg text-[11px] leading-relaxed text-slate-300">
+                  {isTawafRoute
+                    ? 'Karakter mengikuti langkah tawaf Anda. Tiga langkah menyelesaikan satu putaran.'
+                    : phase.tip}
+                </p>
               </div>
               <div className="flex items-center gap-1.5">
                 {activeRoute && (
@@ -4273,7 +4348,8 @@ function RouteConsole({ state, ritual, onClose, dispatch }) {
             </button>
           </div>
           <p className="mt-2 text-[10px] leading-relaxed text-slate-500">
-            Arah berlawanan dan potongan lewat tengah tidak menambah hitungan. Putaran dihitung saat progres melewati ambang commit 99%; hitungan lama tetap sah.
+            Arah berlawanan dan potongan lewat tengah tidak menambah hitungan. Putaran dihitung saat progres
+            melewati ambang commit 99%; hitungan lama tetap sah.
           </p>
         </div>
       ) : (

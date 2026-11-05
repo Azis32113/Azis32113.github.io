@@ -40,7 +40,7 @@ npm run preview
 - **Doa & dzikir tawaf/Sa'i per putaran/leg**: simulator menampilkan bacaan berbeda untuk masing-masing dari 7 putaran tawaf dan 7 leg Sa'i, lengkap dengan teks Arab, latin, terjemahan, dan sumber.
 - **Sembilan fase**: miqat, umrah, 8 Dzulhijjah, Arafah, Muzdalifah, 10 Dzulhijjah, 11–12 Dzulhijjah, Tawaf Wada.
 - **Dua puluh dua ritual** dengan klasifikasi `rukn` / `wajib` / `sunnah` dan audit keluar fase.
-- **Simulator tawaf**: tujuh putaran, arah searah, penolakan arah berlawanan, larangan memotong Mataf, purity sebagai syarat.
+- **Simulator tawaf top-down**: karakter tampil dari atas dan bergerak mengikuti langkah manual mengelilingi Ka'bah sambil menghindari kerumunan.
 - **Simulator Sa'i**: tujuh leg, mulai Safa, arah bergantian, leg ketujuh berakhir di Marwah.
 - **Papan lontar**: 49 kerikil, Aqabah pada 10 Dzulhijjah, tiga jumrah pada 11–12.
 - **Ihram dua episode**, ledger pelanggaran, pemilihan kafarat (dam / puasa / sadaqah), dam tertunda, dan penyelesaian kewajiban.
