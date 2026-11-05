@@ -4039,7 +4039,49 @@ function PhaseRail({ state, compact = false }) {
   );
 }
 
-function PhaseHero({ state, onAdvance, onFinish, onRestore, onReport }) {
+function PhaseIntro({ state }) {
+  const phase = getPhase(state.phaseIndex);
+
+  return (
+    <section className="relative overflow-hidden rounded-3xl border border-white/[.08] bg-[#0a1410]/90 p-4 sm:p-5">
+      <div className="pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-emerald-500/[.07] blur-3xl" />
+      <div className="relative">
+        <div className="flex flex-wrap items-center gap-2">
+          <ToneBadge tone={phase.tone}>
+            <phase.Icon className="h-3 w-3" />
+            {phase.eyebrow}
+          </ToneBadge>
+          <span className="text-[10px] text-slate-500">{phase.momentLabel}</span>
+          <span className="h-1 w-1 rounded-full bg-slate-700" />
+          <span className="text-[10px] text-slate-500">{phase.zoneLabel}</span>
+        </div>
+        <h2 className="mt-3 text-xl font-semibold tracking-tight text-white">{phase.headline}</h2>
+        <div className="mt-3 rounded-2xl border border-white/[.06] bg-white/[.02] p-3">
+          <p className="flex items-center gap-1.5 text-[9px] font-semibold uppercase tracking-[.16em] text-slate-500">
+            <Info className="h-3 w-3" />
+            Tentang fase ini
+          </p>
+          <p className="mt-2 max-w-2xl text-[11px] leading-relaxed text-slate-400">{phase.narrative}</p>
+          <div className="mt-2 flex flex-wrap gap-1.5">
+            {phase.focus.map((item) => (
+              <span
+                key={item}
+                className="rounded-lg border border-white/[.06] bg-white/[.025] px-2 py-1 text-[9px] text-slate-400"
+              >
+                {item}
+              </span>
+            ))}
+          </div>
+          <p className="mt-2 text-[9px] text-slate-500">
+            Titik istirahat: <span className="text-slate-300">{phase.restPoint.label}</span>
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function PhaseProgress({ state, onAdvance, onFinish, onRestore, onReport }) {
   const phase = getPhase(state.phaseIndex);
   const required = RITUALS.filter((r) => r.phase === phase.id);
   const done = required.filter((r) => isComplete(state, r.id)).length;
@@ -4048,98 +4090,66 @@ function PhaseHero({ state, onAdvance, onFinish, onRestore, onReport }) {
   const outcome = state.finished ? outcomeMeta(computeOutcome(state)) : null;
 
   return (
-    <section className="relative overflow-hidden rounded-3xl border border-white/[.08] bg-[#0a1410]/90 p-4 sm:p-5">
-      <div className="pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-emerald-500/[.07] blur-3xl" />
-      <div className="relative flex flex-col gap-4">
+    <section className="rounded-3xl border border-white/[.08] bg-[#0a1410]/90 p-4">
+      <div className="flex items-center gap-4">
+        <CircleProgress
+          value={done}
+          max={required.length}
+          tone={done === required.length ? 'emerald' : phase.tone}
+          size={76}
+          stroke={6}
+        >
+          <span className="text-base font-semibold text-white">{done}</span>
+          <span className="text-[8px] text-slate-500">dari {required.length}</span>
+        </CircleProgress>
         <div className="min-w-0 flex-1">
-          <div className="flex flex-wrap items-center gap-2">
-            <ToneBadge tone={phase.tone}>
-              <phase.Icon className="h-3 w-3" />
-              {phase.eyebrow}
-            </ToneBadge>
-            <span className="text-[10px] text-slate-500">{phase.momentLabel}</span>
-            <span className="h-1 w-1 rounded-full bg-slate-700" />
-            <span className="text-[10px] text-slate-500">{phase.zoneLabel}</span>
-          </div>
-          <h2 className="mt-3 text-xl font-semibold tracking-tight text-white">
-            {phase.headline}
-          </h2>
-          <details className="group mt-2 rounded-xl border border-white/[.05] bg-white/[.015]">
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-2 px-2.5 py-2 text-[10px] font-medium text-slate-400 [&::-webkit-details-marker]:hidden">
-              <span className="flex items-center gap-1.5">
-                <Info className="h-3 w-3 text-slate-500" />
-                Tentang fase ini
-              </span>
-              <ChevronDown className="h-3 w-3 text-slate-600 transition group-open:rotate-180" />
-            </summary>
-            <div className="border-t border-white/[.05] p-2.5">
-              <p className="max-w-2xl text-[11px] leading-relaxed text-slate-400">{phase.narrative}</p>
-              <div className="mt-2 flex flex-wrap gap-1.5">
-                {phase.focus.map((item) => (
-                  <span
-                    key={item}
-                    className="rounded-lg border border-white/[.06] bg-white/[.025] px-2 py-1 text-[9px] text-slate-400"
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
-              <p className="mt-2 text-[9px] text-slate-500">
-                Titik istirahat: <span className="text-slate-300">{phase.restPoint.label}</span>
-              </p>
-            </div>
-          </details>
-        </div>
-
-        <div className="flex shrink-0 items-center gap-4">
-          <CircleProgress value={done} max={required.length} tone={done === required.length ? 'emerald' : phase.tone} size={84} stroke={6}>
-            <span className="text-lg font-semibold text-white">{done}</span>
-            <span className="text-[9px] text-slate-500">dari {required.length} ritual</span>
-          </CircleProgress>
+          <p className="text-[9px] uppercase tracking-[.14em] text-slate-500">Progres fase</p>
+          <p className="mt-0.5 text-sm font-semibold text-white">
+            {done} dari {required.length} ritual selesai
+          </p>
           {state.finished ? (
-            <ToneBadge tone={outcome.tone}>
+            <ToneBadge tone={outcome.tone} className="mt-1.5">
               <outcome.Icon className="h-3 w-3" />
               {outcome.label}
             </ToneBadge>
           ) : (
-            <div className="text-right">
-              <p className="text-[9px] uppercase tracking-[.14em] text-slate-500">Fase berikutnya</p>
-              <p className="text-[11px] font-medium text-slate-300">{nextPhase ? nextPhase.short : 'Laporan'}</p>
-            </div>
+            <p className="mt-1 text-[10px] text-slate-500">
+              Fase berikutnya: <span className="text-slate-300">{nextPhase ? nextPhase.short : 'Laporan'}</span>
+            </p>
           )}
         </div>
       </div>
 
-      <div className="relative mt-4 flex flex-wrap items-center gap-2 border-t border-white/[.06] pt-3.5">
+      <div className="mt-4 flex flex-col gap-2 border-t border-white/[.06] pt-3">
         {state.mode === 'latihan' && state.checkpoint && (
-          <GhostButton onClick={onRestore} className="py-1.5 text-[10px]">
+          <GhostButton onClick={onRestore} className="w-full justify-center py-2 text-[10px]">
             <RotateCcw className="h-3 w-3" />
             Checkpoint fase
           </GhostButton>
         )}
         {state.finished ? (
-          <PrimaryButton onClick={onReport} className="py-2">
+          <PrimaryButton onClick={onReport} className="w-full justify-center py-2.5">
             <Trophy className="h-3.5 w-3.5" />
             Lihat laporan
           </PrimaryButton>
         ) : isLast ? (
-          <PrimaryButton onClick={onFinish} className="py-2">
+          <PrimaryButton onClick={onFinish} className="w-full justify-center py-2.5">
             <Trophy className="h-3.5 w-3.5" />
             Selesaikan sesi
           </PrimaryButton>
         ) : (
-          <PrimaryButton onClick={onAdvance} className="py-2">
+          <PrimaryButton onClick={onAdvance} className="w-full justify-center py-2.5">
             <ChevronRight className="h-3.5 w-3.5" />
             Audit & lanjut
           </PrimaryButton>
         )}
       </div>
       {state.finished && (
-        <div className="relative mt-2 flex items-center gap-2 text-[10px] text-slate-500">
+        <div className="mt-2 flex items-center gap-2 text-[10px] text-slate-500">
           <ShieldCheck className="h-3.5 w-3.5 text-amber-300" />
           {state.endedEarly
-            ? 'Sesi dihentikan. Buka laporan dari tombol di kanan atas atau menu sesi.'
-            : 'Sesi selesai. Buka laporan dari tombol di kanan atas atau menu sesi.'}
+            ? 'Sesi dihentikan. Buka laporan dari tombol di menu sesi.'
+            : 'Sesi selesai. Buka laporan dari tombol di menu sesi.'}
         </div>
       )}
     </section>
@@ -6594,15 +6604,16 @@ export default function App() {
               <PhaseRail state={state} compact />
             </div>
             <div className="space-y-3">
-              <PhaseHero
+              <PhaseIntro state={state} />
+              <ScenePanel state={state} ui={ui} setUi={setUi} dispatch={dispatch} />
+              <ActionsPanel state={state} dispatch={dispatch} ui={ui} setUi={setUi} onRestore={openRestoreConfirm} />
+              <PhaseProgress
                 state={state}
                 onAdvance={() => setUi((current) => ({ ...current, advanceOpen: true }))}
                 onFinish={() => setUi((current) => ({ ...current, finishOpen: true }))}
                 onRestore={openRestoreConfirm}
                 onReport={openReport}
               />
-              <ScenePanel state={state} ui={ui} setUi={setUi} dispatch={dispatch} />
-              <ActionsPanel state={state} dispatch={dispatch} ui={ui} setUi={setUi} onRestore={openRestoreConfirm} />
             </div>
           </main>
 
