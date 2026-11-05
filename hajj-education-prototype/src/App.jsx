@@ -6040,6 +6040,9 @@ function ReportView({ state, report, onClose, onRestart, onExit, onRestore }) {
   const openDebts = report.debts.filter((d) => !d.resolved);
   const openViolations = report.violations.filter((v) => !v.resolved);
   const totalOpen = openDebts.length + openViolations.length;
+  const missingRukn = report.rituals.rows.filter((r) => r.classification === 'rukn' && !r.completed);
+  const showErrors =
+    report.outcome === 'HajjTidakSah' || report.outcome === 'SelesaiDenganDam';
 
   return (
     <div className="fixed inset-0 z-[95] overflow-y-auto bg-[#060c09]">
@@ -6108,6 +6111,98 @@ function ReportView({ state, report, onClose, onRestart, onExit, onRestore }) {
             </div>
           </div>
         </section>
+
+        {showErrors && (
+          <section
+            className={cx(
+              'mt-3 rounded-2xl border p-4',
+              report.outcome === 'HajjTidakSah'
+                ? 'border-rose-400/25 bg-rose-500/[.05]'
+                : 'border-amber-400/25 bg-amber-500/[.05]',
+            )}
+          >
+            <div className="flex items-start gap-2">
+              <span
+                className={cx(
+                  'flex h-8 w-8 shrink-0 items-center justify-center rounded-xl',
+                  report.outcome === 'HajjTidakSah'
+                    ? 'bg-rose-500/15 text-rose-300'
+                    : 'bg-amber-500/15 text-amber-300',
+                )}
+              >
+                <AlertTriangle className="h-4 w-4" />
+              </span>
+              <div className="min-w-0">
+                <h2 className="text-sm font-semibold text-white">
+                  {report.outcome === 'HajjTidakSah'
+                    ? 'Kesalahan: haji tidak sah'
+                    : 'Kesalahan: haji dengan dam'}
+                </h2>
+                <p className="mt-1 text-[10px] leading-relaxed text-slate-400">
+                  {report.outcome === 'HajjTidakSah'
+                    ? 'Rukun yang tertinggal tidak dapat diganti dengan dam. Ini penyebab terminal pada model.'
+                    : 'Ada kewajiban atau kafarat yang belum tuntas. Haji selesai, tetapi outcome menjadi dam.'}
+                </p>
+              </div>
+            </div>
+
+            <ul className="mt-3 space-y-1.5">
+              {missingRukn.map((ritual) => (
+                <li
+                  key={`rukn-${ritual.id}`}
+                  className="flex items-start gap-2 rounded-lg border border-white/[.06] bg-black/20 px-2.5 py-2"
+                >
+                  <span className="mt-0.5 shrink-0 rounded bg-rose-500/15 px-1 py-0.5 text-[8px] font-semibold uppercase tracking-wider text-rose-300">
+                    Rukun
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[10px] font-medium text-slate-200">{ritual.name}</p>
+                    <p className="mt-0.5 text-[9px] text-slate-500">
+                      {ritual.citation} · tidak bisa diganti dam
+                    </p>
+                  </div>
+                </li>
+              ))}
+              {openDebts.map((debt) => (
+                <li
+                  key={`debt-${debt.id}`}
+                  className="flex items-start gap-2 rounded-lg border border-white/[.06] bg-black/20 px-2.5 py-2"
+                >
+                  <span className="mt-0.5 shrink-0 rounded bg-amber-500/15 px-1 py-0.5 text-[8px] font-semibold uppercase tracking-wider text-amber-300">
+                    Dam
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[10px] font-medium text-slate-200">{debt.cause}</p>
+                    <p className="mt-0.5 text-[9px] text-slate-500">{debt.citation} · belum ditunaikan</p>
+                  </div>
+                </li>
+              ))}
+              {openViolations.map((violation) => (
+                <li
+                  key={`violation-${violation.id}`}
+                  className="flex items-start gap-2 rounded-lg border border-white/[.06] bg-black/20 px-2.5 py-2"
+                >
+                  <span className="mt-0.5 shrink-0 rounded bg-rose-500/15 px-1 py-0.5 text-[8px] font-semibold uppercase tracking-wider text-rose-300">
+                    Kafarat
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[10px] font-medium text-slate-200">{violation.label}</p>
+                    <p className="mt-0.5 text-[9px] text-slate-500">
+                      {violation.citation}
+                      {violation.episode ? ` · episode ${violation.episode}` : ''} ·{' '}
+                      {violation.remedy ? `pilihan ${violation.remedy}, belum ditunaikan` : 'belum dipilih'}
+                    </p>
+                  </div>
+                </li>
+              ))}
+              {!missingRukn.length && !openDebts.length && !openViolations.length && (
+                <li className="rounded-lg border border-white/[.06] bg-black/20 px-2.5 py-2 text-[10px] text-slate-500">
+                  Tidak ada rincian kesalahan; lihat Debrief di bagian bawah.
+                </li>
+              )}
+            </ul>
+          </section>
+        )}
 
         {report.endedEarly && (
           <RuleNote icon={CircleSlash2} tone="slate" className="mt-3">
